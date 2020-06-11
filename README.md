@@ -20,6 +20,12 @@ All dependencies are provided, no additional setup required.
 2. Copy-paste all files inside `Build` into `game root directory`, overwrite when prompted.
 
 ## Credits
-- InNoHurryToCode: initial code, launcher, refactoring patches into modules
-- stx09: almost all the patches
-- craik: some of the patches
+- InNoHurryToCode
+- stx09
+- KruncyBite
+- PoloYolo
+- Craink
+- Stingray
+- BALIST0N
+- Apofis
+- TheMaoci
