@@ -1,16 +1,12 @@
-using System;
 using System.Reflection;
-using EFT.UI;
-using EFT.UI.Matchmaker;
 using EmuTarkov.Common.Utils.Patching;
-using UnityEngine;
-using NextScreenShowAction = GClass1108;
+using NextScreenShowAction = GClass1110;
 
 namespace EmuTarkov.SinglePlayer.Patches.Matchmaker
 {
     class InsuranceScreenPatch : AbstractPatch
     {
-        public static void Prefix(ref bool local, GStruct77 weatherSettings, GStruct196 botsSettings, GStruct78 wavesSettings)
+        public static void Prefix(bool local, GStruct73 weatherSettings, GStruct177 botsSettings, GStruct74 wavesSettings)
         {
             local = false;
         }
