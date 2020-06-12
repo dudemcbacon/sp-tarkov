@@ -1,6 +1,6 @@
 using System.Reflection;
 using EmuTarkov.Common.Utils.Patching;
-using NextScreenShowAction = GClass1110;
+using NextScreenShowAction = GClass1100;
 
 namespace EmuTarkov.SinglePlayer.Patches.Matchmaker
 {
