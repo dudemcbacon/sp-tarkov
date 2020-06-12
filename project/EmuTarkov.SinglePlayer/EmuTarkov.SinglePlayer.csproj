@@ -80,6 +80,8 @@
     <Compile Include="Patches\Bots\RemoveUsedBotProfilePatch.cs" />
     <Compile Include="Patches\Bots\SpawnPmcPatch.cs" />
     <Compile Include="Patches\Healing\PlayerPatch.cs" />
+    <Compile Include="Patches\Matchmaker\InsuranceScreenPatch.cs" />
+    <Compile Include="Patches\Progression\EndByTimerPatch.cs" />
     <Compile Include="Utils\Bots\Difficulty.cs" />
     <Compile Include="Utils\Player\HealthListener.cs" />
     <Compile Include="Patches\Healing\MainMenuControllerPatch.cs" />

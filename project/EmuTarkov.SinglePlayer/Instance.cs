@@ -25,8 +25,7 @@ namespace EmuTarkov.SinglePlayer
 			PatcherUtil.Patch<Patches.Healing.PlayerPatch>();
 
 			PatcherUtil.PatchPostfix<MatchmakerOfflineRaidPatch>();
-            PatcherUtil.PatchPrefix<InsuranceScreenPatch>();
-			PatcherUtil.PatchPostfix<InsuranceScreenPatch>();
+            PatcherUtil.Patch<InsuranceScreenPatch>();
 
 			PatcherUtil.PatchPostfix<BotTemplateLimitPatch>();
             PatcherUtil.PatchPrefix<GetNewBotTemplatesPatch>();
@@ -37,6 +36,8 @@ namespace EmuTarkov.SinglePlayer
 
 			PatcherUtil.PatchPrefix<BeaconPatch>();
 			PatcherUtil.PatchPostfix<DogtagPatch>();
+
+			PatcherUtil.Patch<EndByTimerPatch>();
         }
     }
 }

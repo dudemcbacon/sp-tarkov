@@ -1,23 +1,51 @@
+using System;
+using System.Linq;
 using System.Reflection;
 using EmuTarkov.Common.Utils.Patching;
-using NextScreenShowAction = GClass1100;
+using MainMenuController = GClass1100;
 
 namespace EmuTarkov.SinglePlayer.Patches.Matchmaker
 {
-    class InsuranceScreenPatch : AbstractPatch
+    class InsuranceScreenPatch : GenericPatch<InsuranceScreenPatch>
     {
-        public static void Prefix(bool local, GStruct73 weatherSettings, GStruct177 botsSettings, GStruct74 wavesSettings)
+        static InsuranceScreenPatch()
+        {
+            _ = nameof(MainMenuController.InventoryController);
+        }
+
+        public InsuranceScreenPatch() : base(prefix: nameof(PrefixPatch), postfix: nameof(PostfixPatch)) { }
+
+        // don't forget 'ref'
+        static void PrefixPatch(ref bool local)
         {
             local = false;
         }
-        public static void Postfix(ref bool ___bool_0)
+
+        static void PostfixPatch(ref bool ___bool_0)
         {
             ___bool_0 = true;
         }
 
-        public override MethodInfo TargetMethod()
+        protected override MethodBase GetTargetMethod()
         {
-            return typeof(NextScreenShowAction).GetMethod("method_53", BindingFlags.NonPublic | BindingFlags.Instance);
+            // find method 
+            // private void method_53(bool local, GStruct73 weatherSettings, GStruct177 botsSettings, GStruct74 wavesSettings)
+            return typeof(MainMenuController)
+                .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                .FirstOrDefault(IsTargetMethod);    // controller contains 2 methods with same signature. Usually target method is first of them.
+        }
+
+        private static bool IsTargetMethod(MethodInfo mi)
+        {
+            var parameters = mi.GetParameters();
+            if (parameters.Length != 4
+             || parameters[0].ParameterType != typeof(bool)
+             || parameters[0].Name != "local"
+             || parameters[1].Name != "weatherSettings"
+             || parameters[2].Name != "botsSettings"
+             || parameters[3].Name != "wavesSettings")
+                return false;
+            return true;
         }
     }
 }
