@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using HarmonyLib;
 using UnityEngine;
 
@@ -32,13 +33,23 @@ namespace EmuTarkov.Common.Utils.Patching
 
 		public static void Patch<T>() where T : GenericPatch<T>, new()
 		{
-			var patch = new T();
-			harmony.Patch(patch.TargetMethod,
-						  prefix: patch.Prefix.ToHarmonyMethod(),
-						  postfix: patch.Postfix.ToHarmonyMethod(),
-						  transpiler: patch.Transpiler.ToHarmonyMethod(),
-						  finalizer: patch.Finalizer.ToHarmonyMethod());
-			Debug.LogError("EmuTarkov.Common: Applied patch " + typeof(T).Name);
+			try
+			{
+				var patch = new T();
+				if (patch.TargetMethod == null)
+					throw new InvalidOperationException("TargetMethod is null");
+
+				harmony.Patch(patch.TargetMethod,
+							  prefix: patch.Prefix.ToHarmonyMethod(),
+							  postfix: patch.Postfix.ToHarmonyMethod(),
+							  transpiler: patch.Transpiler.ToHarmonyMethod(),
+							  finalizer: patch.Finalizer.ToHarmonyMethod());
+				Debug.LogError("EmuTarkov.Common: Applied patch " + typeof(T).Name);
+			}
+			catch (Exception ex)
+			{
+				Debug.LogError($"EmuTarkov.Common: Error in patch {typeof(T).Name}{Environment.NewLine}{ex}");
+			}
 		}
 	}
 
