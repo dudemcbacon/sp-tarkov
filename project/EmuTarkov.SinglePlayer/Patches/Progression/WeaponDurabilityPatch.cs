@@ -3,7 +3,7 @@ using System.Reflection;
 using UnityEngine;
 using EFT;
 using EmuTarkov.Common.Utils.Patching;
-using AmmoInfo = GClass1564;
+using AmmoInfo = GClass1556;
 
 namespace EmuTarkov.SinglePlayer.Patches.Progression
 {
