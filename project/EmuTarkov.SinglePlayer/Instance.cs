@@ -36,6 +36,8 @@ namespace EmuTarkov.SinglePlayer
 
 			PatcherUtil.PatchPrefix<BeaconPatch>();
 			PatcherUtil.PatchPostfix<DogtagPatch>();
+
+			PatcherUtil.Patch<EndByTimerPatch>();
         }
     }
 }
