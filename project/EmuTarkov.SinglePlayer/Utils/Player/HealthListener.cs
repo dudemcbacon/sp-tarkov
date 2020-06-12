@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using IHealthController = GInterface147;
-using StDamage = GStruct203;
-using IEffect = GInterface113;
+using IHealthController = GInterface146;
+using StDamage = GStruct184;
+using IEffect = GInterface112;
 using EmuTarkov.Common.Utils.HTTP;
 using UnityEngine;
 
@@ -111,7 +111,7 @@ namespace EmuTarkov.SinglePlayer.Utils.Player
                 dictionary[bodyPart].AddEffect(BodyPartEffect.BreakPart);
         }
 
-        private void OnDiedEvent(EFT.HealthSystem.EDamageType obj)
+        private void OnDiedEvent(EFT.EDamageType obj)
         {
             CurrentHealth.IsAlive = false;
         }

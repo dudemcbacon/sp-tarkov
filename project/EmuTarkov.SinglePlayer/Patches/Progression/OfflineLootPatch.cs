@@ -4,7 +4,7 @@ using UnityEngine;
 using EmuTarkov.Common.Utils.App;
 using EmuTarkov.Common.Utils.HTTP;
 using EmuTarkov.Common.Utils.Patching;
-using LocationInfo = GClass729.GClass731;
+using LocationInfo = GClass718.GClass720;
 
 namespace EmuTarkov.SinglePlayer.Patches.Progression
 {
@@ -28,7 +28,7 @@ namespace EmuTarkov.SinglePlayer.Patches.Progression
 		{
 			var localGameBaseType = PatcherConstants.LocalGameType.BaseType;
 
-			_property = localGameBaseType.GetProperty($"{nameof(GClass729.GClass731)}_0", BindingFlags.NonPublic | BindingFlags.Instance);
+			_property = localGameBaseType.GetProperty($"{nameof(GClass718.GClass720)}_0", BindingFlags.NonPublic | BindingFlags.Instance);
 			return localGameBaseType.GetMethod(methodName, flags);
 		}
 

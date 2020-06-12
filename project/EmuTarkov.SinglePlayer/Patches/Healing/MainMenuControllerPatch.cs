@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using EmuTarkov.Common.Utils.Patching;
-using MainMenuController = GClass1108;
-using IHealthController = GInterface147;
+using MainMenuController = GClass1100;
+using IHealthController = GInterface146;
 
 namespace EmuTarkov.SinglePlayer.Patches.Healing
 {

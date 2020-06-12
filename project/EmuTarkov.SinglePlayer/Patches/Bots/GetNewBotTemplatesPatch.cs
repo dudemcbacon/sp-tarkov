@@ -8,10 +8,10 @@ using UnityEngine;
 using Comfort.Common;
 using EFT;
 using EmuTarkov.Common.Utils.Patching;
-using WaveInfo = GClass865;
+using WaveInfo = GClass854;
 using BotsPresets = GClass294;
 using BotData = GInterface13;
-using PoolManager = GClass1081;
+using PoolManager = GClass1073;
 using JobPriority = GClass584;
 
 namespace EmuTarkov.SinglePlayer.Patches.Bots
@@ -32,13 +32,13 @@ namespace EmuTarkov.SinglePlayer.Patches.Bots
 
             // creating delegate
             _getNewProfileFunc = typeof(BotsPresets)
-                .GetMethod("GetNewProfile", BindingFlags.NonPublic | BindingFlags.Instance)
+                .GetMethod(nameof(BotsPresets.GetNewProfile), BindingFlags.NonPublic | BindingFlags.Instance)
                 .CreateDelegate(typeof(Func<BotsPresets, BotData, Profile>)) as Func<BotsPresets, BotData, Profile>;
         }
 
         public override MethodInfo TargetMethod()
         {
-            return typeof(BotsPresets).GetMethod("method_2", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            return typeof(BotsPresets).GetMethod(nameof(BotsPresets.CreateProfile), BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
         }
 
         public static bool Prefix(ref Task<Profile> __result, BotsPresets __instance, BotData data)
