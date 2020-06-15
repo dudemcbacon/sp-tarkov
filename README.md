@@ -11,6 +11,7 @@ Client-side runtime patches to alter the client's behaviour.
 ## Requirements
 - Visual Studio 2017 or newer
 - .NET Framework 4.6.1
+- Client Needed : 12.6.7738
 
 ## Setup
 All dependencies are provided, no additional setup required.
