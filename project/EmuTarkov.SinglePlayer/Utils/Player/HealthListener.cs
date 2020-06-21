@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IHealthController = GInterface146;
-using StDamage = GStruct184;
+using StDamage = GStruct185;
 using IEffect = GInterface112;
 using EmuTarkov.Common.Utils.HTTP;
 using UnityEngine;

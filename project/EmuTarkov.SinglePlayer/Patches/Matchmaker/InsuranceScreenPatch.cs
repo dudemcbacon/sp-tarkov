@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using EmuTarkov.Common.Utils.Patching;
-using MainMenuController = GClass1100;
+using MainMenuController = GClass1099;
 
 namespace EmuTarkov.SinglePlayer.Patches.Matchmaker
 {

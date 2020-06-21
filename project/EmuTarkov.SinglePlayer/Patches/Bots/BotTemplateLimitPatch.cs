@@ -3,7 +3,7 @@ using System.Reflection;
 using EFT;
 using EmuTarkov.Common.Utils.Patching;
 using EmuTarkov.SinglePlayer.Utils.Bots;
-using WaveInfo = GClass854;
+using WaveInfo = GClass853;
 using BotsPresets = GClass294;
 
 namespace EmuTarkov.SinglePlayer.Patches.Bots
