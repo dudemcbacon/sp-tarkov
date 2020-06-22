@@ -19,7 +19,7 @@ namespace EmuTarkov.SinglePlayer
 
 			PatcherUtil.PatchPrefix<OfflineLootPatch>();
 			PatcherUtil.PatchPrefix<OfflineSaveProfilePatch>();
-			PatcherUtil.PatchPostfix<WeaponDurabilityPatch>();
+			//PatcherUtil.PatchPostfix<WeaponDurabilityPatch>();
 
 			PatcherUtil.Patch<Patches.Healing.MainMenuControllerPatch>();
 			PatcherUtil.Patch<Patches.Healing.PlayerPatch>();
