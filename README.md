@@ -6,10 +6,9 @@ Client-side runtime patches to alter the client's behaviour.
 - EmuTarkov.Core: required patches for the game to run.
 - EmuTarkov.SinglePlayer: simulating online game offline.
 - EmuTarkov.Launcher: a custom game launcher allows the game to be launched offline.
-- EmuTarkov.Server: a C# rewrite of the JS backend emulator.
 
 ## Requirements
-- Visual Studio 2017 or newer
+- Visual Studio 2017 (.NET desktop workload) or newer
 - .NET Framework 4.6.1
 - Escape From Tarkov 0.12.6.7865
 

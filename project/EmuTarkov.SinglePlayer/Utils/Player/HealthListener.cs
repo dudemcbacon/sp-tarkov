@@ -108,7 +108,17 @@ namespace EmuTarkov.SinglePlayer.Utils.Player
 
             // set effects
             if (healthController.IsBodyPartBroken(bodyPart))
+<<<<<<< HEAD
                 dictionary[bodyPart].AddEffect(BodyPartEffect.BreakPart);
+=======
+            {
+                dictionary[bodyPart].AddEffect(BodyPartEffect.BreakPart);
+            }
+            else
+            {
+                dictionary[bodyPart].RemoveEffect(BodyPartEffect.BreakPart);
+            }
+>>>>>>> development
         }
 
         private void OnDiedEvent(EFT.EDamageType obj)
