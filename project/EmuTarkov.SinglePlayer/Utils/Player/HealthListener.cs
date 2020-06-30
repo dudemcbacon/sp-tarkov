@@ -117,7 +117,7 @@ namespace EmuTarkov.SinglePlayer.Utils.Player
             }
         }
 
-        private void OnDiedEvent(EFT.EDamageType obj)
+        private void OnDiedEvent(EFT.HealthSystem.EDamageType obj)
         {
             CurrentHealth.IsAlive = false;
         }
