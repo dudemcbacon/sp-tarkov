@@ -4,20 +4,20 @@ using System.Reflection;
 
 namespace EmuTarkov.Launcher
 {
-    public class AssemblyLoader
+    public static class AssemblyLoader
     {
-        private readonly string filepath;
+        public static string Filepath { get; private set; }
 
-        public AssemblyLoader(string filepath)
+        public static void Run(string filepath)
         {
-            this.filepath = filepath;
+            Filepath = filepath;
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveEvent);
         }
 
-        private Assembly AssemblyResolveEvent(object sender, ResolveEventArgs args)
+        private static Assembly AssemblyResolveEvent(object sender, ResolveEventArgs args)
         {
             string assembly = new AssemblyName(args.Name).Name;
-            string filename = Path.Combine(Environment.CurrentDirectory, filepath + assembly + ".dll");
+            string filename = Path.Combine(Environment.CurrentDirectory, Filepath + assembly + ".dll");
 
             // resources are embedded inside assembly
             if (filename.Contains("resources"))

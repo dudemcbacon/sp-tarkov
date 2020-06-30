@@ -8,9 +8,15 @@ namespace EmuTarkov.Launcher
 		[STAThread]
 		private static void Main()
 		{
-			new AssemblyLoader("EscapeFromTarkov_Data/Managed/");
+			AssemblyLoader.Run("EscapeFromTarkov_Data/Managed/");
 
-            Application.EnableVisualStyles();
+			// make sure assembly is resolved
+			Run();
+		}
+
+		private static void Run()
+		{
+			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new Main());
 		}
