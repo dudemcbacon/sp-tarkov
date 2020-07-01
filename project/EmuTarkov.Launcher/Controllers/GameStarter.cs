@@ -30,7 +30,7 @@ namespace EmuTarkov.Launcher
 
 			ProcessStartInfo clientProcess = new ProcessStartInfo(clientExecutable)
 			{
-				Arguments = String.Format("-bC5vLmcuaS5u={0} -token={1}", GenerateToken(account), account.id);
+				Arguments = string.Format("-bC5vLmcuaS5u={0} -token={1}", GenerateToken(account), account.id),
 				UseShellExecute = false,
 				WorkingDirectory = Environment.CurrentDirectory
 			};
@@ -82,7 +82,7 @@ namespace EmuTarkov.Launcher
 		{
 			LoginToken token = new LoginToken(data.email, data.password);
 			string serialized = Json.Serialize(token);
-			return String.Format("{0}=", Convert.ToBase64String(Encoding.UTF8.GetBytes(serialized)));
+			return string.Format("{0}=", Convert.ToBase64String(Encoding.UTF8.GetBytes(serialized)));
 		}
 	}
 }
