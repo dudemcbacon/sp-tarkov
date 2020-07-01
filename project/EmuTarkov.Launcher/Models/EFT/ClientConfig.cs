@@ -5,9 +5,9 @@
 		public string BackendUrl;
 		public string Version;
 
-		public ClientConfig()
+		public ClientConfig(string backendUrl)
 		{
-			BackendUrl = "https://127.0.0.1";
+			BackendUrl = backendUrl;
 			Version = "live";
 		}
 	}

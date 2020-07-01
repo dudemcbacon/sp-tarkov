@@ -23,14 +23,10 @@ namespace EmuTarkov.Launcher
 			{
 				return -1;
 			}
-
-			ClientConfig clientConfig = JsonHandler.LoadClientConfig();
-			clientConfig.BackendUrl = server.backendUrl;
-			JsonHandler.SaveClientConfig(clientConfig);
-
+			
 			ProcessStartInfo clientProcess = new ProcessStartInfo(clientExecutable)
 			{
-				Arguments = string.Format("-bC5vLmcuaS5u={0} -token={1}", GenerateToken(account), account.id),
+				Arguments = string.Format("-bC5vLmcuaS5u={0} -token={1} -config={2}", GenerateToken(account), account.id, Json.Serialize(new ClientConfig(server.backendUrl))),
 				UseShellExecute = false,
 				WorkingDirectory = Environment.CurrentDirectory
 			};
