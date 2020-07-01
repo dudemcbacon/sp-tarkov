@@ -12,10 +12,11 @@ namespace EmuTarkov.Launcher
 		public int LaunchGame(ServerInfo server, AccountInfo account)
 		{
 			string clientExecutable = "EscapeFromTarkov.exe";
+			bool legalCopy = false;
 
 			if (account.wipe)
 			{
-				RemoveRegisteryKeys();
+				legalCopy = RemoveRegisteryKeys();
 				CleanTempFiles();
 			}
 
@@ -33,10 +34,10 @@ namespace EmuTarkov.Launcher
 
 			Process.Start(clientProcess);
 
-			return 1;
+			return (legalCopy) ? 1 : 2;
 		}
 
-		private void RemoveRegisteryKeys()
+		private bool RemoveRegisteryKeys()
 		{
 			try
 			{
@@ -46,10 +47,13 @@ namespace EmuTarkov.Launcher
 				{
 					key.DeleteValue(value);
 				}
+
+				return true;
 			}
 			catch
 			{
-				// very first time launching tarkov, maybe display a message that one should buy the game to support the devs?
+				// first time launching tarkov, illegal copy detected.
+				return false;
 			}
 		}
 
