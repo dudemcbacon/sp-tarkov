@@ -80,7 +80,6 @@
     <Compile Include="Patches\Bots\SpawnPmcPatch.cs" />
     <Compile Include="Patches\Healing\PlayerPatch.cs" />
     <Compile Include="Patches\Matchmaker\InsuranceScreenPatch.cs" />
-    <Compile Include="Patches\Matchmaker\MatchMakerSideSelectionScreenPatch.cs" />
     <Compile Include="Patches\Progression\EndByTimerPatch.cs" />
     <Compile Include="Patches\Progression\SingleModeJamPatch.cs" />
     <Compile Include="Utils\Bots\Difficulty.cs" />
