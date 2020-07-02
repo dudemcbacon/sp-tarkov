@@ -26,7 +26,8 @@ namespace EmuTarkov.SinglePlayer
 			PatcherUtil.Patch<Patches.Healing.PlayerPatch>();
 
 			PatcherUtil.PatchPostfix<MatchmakerOfflineRaidPatch>();
-            PatcherUtil.Patch<InsuranceScreenPatch>();
+			PatcherUtil.PatchPostfix<MatchMakerSelectionLocationScreenPatch>();
+			PatcherUtil.Patch<InsuranceScreenPatch>();
 
 			PatcherUtil.PatchPostfix<BotTemplateLimitPatch>();
             PatcherUtil.PatchPrefix<GetNewBotTemplatesPatch>();
