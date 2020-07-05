@@ -77,7 +77,7 @@ namespace EmuTarkov.Core.Patches
             var index = 129;
             var dupCode = new CodeInstruction(OpCodes.Dup);
 
-            var certificateHandlerType = PatcherConstants.TargetAssembly.GetTypes().Single(x => x.Name == "Class480");
+            var certificateHandlerType = PatcherConstants.TargetAssembly.GetTypes().Single(x => x.BaseType == typeof(CertificateHandler));
             var newObjCode = new CodeInstruction(OpCodes.Newobj, AccessTools.Constructor(certificateHandlerType));
             var callVirtCode = new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(UnityWebRequest), "set_certificateHandler"));
 
