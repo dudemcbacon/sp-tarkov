@@ -4,7 +4,9 @@ using EmuTarkov.SinglePlayer.Patches.Bots;
 using EmuTarkov.SinglePlayer.Patches.Matchmaker;
 using EmuTarkov.SinglePlayer.Patches.Progression;
 using EmuTarkov.SinglePlayer.Patches.Quests;
+using EmuTarkov.SinglePlayer.Patches.ScavMode;
 using EmuTarkov.SinglePlayer.Utils.Bots;
+using HarmonyLib;
 
 namespace EmuTarkov.SinglePlayer
 {
@@ -39,7 +41,13 @@ namespace EmuTarkov.SinglePlayer
 			PatcherUtil.PatchPrefix<BeaconPatch>();
 			PatcherUtil.PatchPostfix<DogtagPatch>();
 
-			PatcherUtil.Patch<EndByTimerPatch>();
+            PatcherUtil.Patch<LoadOfflineRaidScreenPatch>();
+            PatcherUtil.Patch<ScavPrefabLoadPatch>();
+            PatcherUtil.Patch<ScavProfileLoadPatch>();
+            PatcherUtil.Patch<ScavSpawnPointPatch>();
+            PatcherUtil.Patch<ScavExfilPatch>();
+
+            PatcherUtil.Patch<EndByTimerPatch>();
         }
     }
 }
