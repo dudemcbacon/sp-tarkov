@@ -9,7 +9,6 @@ using EmuTarkov.SinglePlayer.Utils.Reflection;
 using EFT;
 using EFT.UI.Matchmaker;
 using EFT.UI.Screens;
-using UnityEngine;
 using MenuController = GClass1099;
 
 namespace EmuTarkov.SinglePlayer.Patches.ScavMode
