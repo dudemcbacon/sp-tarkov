@@ -82,6 +82,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y /I $(TargetDir)*.dll $(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Unix'">
+      xcopy /Y /I $(TargetDir)*.dll $(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\
+    </PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'Unix'">
+      cp $(TargetDir)*.dll $(SolutionDir)/Build/EscapeFromTarkov_Data/Managed/
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
