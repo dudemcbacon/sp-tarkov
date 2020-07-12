@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
-using EmuTarkov.Common.Utils.Patching;
-using EmuTarkov.SinglePlayer.Utils.Bots;
 using EFT;
+using EmuTarkov.Common.Utils.Patching;
+using EmuTarkov.SinglePlayer.Utils;
+using EmuTarkov.SinglePlayer.Utils.Bots;
 using BotDifficultyHandler = GClass236;
 
 namespace EmuTarkov.SinglePlayer.Patches.Bots
@@ -21,7 +22,7 @@ namespace EmuTarkov.SinglePlayer.Patches.Bots
 
 		public static bool Prefix(ref string __result, BotDifficulty botDifficulty, WildSpawnType role)
 		{
-			foreach (Difficulty difficulty in BotSettings.Difficulties)
+			foreach (Difficulty difficulty in Settings.Difficulties)
 			{
 				if (difficulty.Role == role && difficulty.BotDifficulty == botDifficulty)
 				{

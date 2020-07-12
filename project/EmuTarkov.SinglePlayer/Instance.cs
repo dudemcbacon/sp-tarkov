@@ -5,8 +5,7 @@ using EmuTarkov.SinglePlayer.Patches.Matchmaker;
 using EmuTarkov.SinglePlayer.Patches.Progression;
 using EmuTarkov.SinglePlayer.Patches.Quests;
 using EmuTarkov.SinglePlayer.Patches.ScavMode;
-using EmuTarkov.SinglePlayer.Utils.Bots;
-using HarmonyLib;
+using EmuTarkov.SinglePlayer.Utils;
 
 namespace EmuTarkov.SinglePlayer
 {
@@ -17,7 +16,7 @@ namespace EmuTarkov.SinglePlayer
             Debug.LogError("EmuTarkov.SinglePlayer: Loaded");
 
 			// todo: find a way to get php session id
-			new BotSettings(null, Utils.Config.BackendUrl);
+			new Settings(null, Utils.Config.BackendUrl);
 
 			PatcherUtil.PatchPrefix<OfflineLootPatch>();
 			PatcherUtil.PatchPrefix<OfflineSaveProfilePatch>();

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using EmuTarkov.Common.Utils.Patching;
-using EmuTarkov.SinglePlayer.Utils.Bots;
+using EmuTarkov.SinglePlayer.Utils;
 using BotDifficultyHandler = GClass236;
 
 namespace EmuTarkov.SinglePlayer.Patches.Bots
@@ -20,7 +20,7 @@ namespace EmuTarkov.SinglePlayer.Patches.Bots
 
 		public static bool Prefix(ref string __result)
 		{
-			__result = BotSettings.CoreDifficulty;
+			__result = Settings.CoreDifficulty;
 
 			if (string.IsNullOrEmpty(__result))
 			{
