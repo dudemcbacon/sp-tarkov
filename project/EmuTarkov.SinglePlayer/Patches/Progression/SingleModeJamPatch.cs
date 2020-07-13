@@ -5,6 +5,7 @@ using EFT;
 using EFT.InventoryLogic;
 using EmuTarkov.Common.Utils.Patching;
 using EmuTarkov.SinglePlayer.Utils;
+using static EFT.Player;
 
 namespace EmuTarkov.SinglePlayer.Patches.Progression
 {
@@ -39,7 +40,7 @@ namespace EmuTarkov.SinglePlayer.Patches.Progression
             return true;
         }
 
-        public static void Postfix(object __instance, Weapon ___weapon_0)
+        public static void Postfix(object __instance, Weapon ___weapon_0, FirearmsAnimator ___firearmsAnimator_0, FirearmController ___firearmController_0)
         {
             if (!Settings.WeaponDurabilityEnabled || ___weapon_0.MalfunctionState != Weapon.EMalfunctionState.Jam)
             {
@@ -47,6 +48,9 @@ namespace EmuTarkov.SinglePlayer.Patches.Progression
             }
 
             _onFireEventMethod.Invoke(__instance, new object[] { });
+
+            ___firearmsAnimator_0.Animator.Play("JAM", 1, 0f);
+            ___firearmController_0.EmitEvents();
         }
     }
 }
