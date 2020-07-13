@@ -18,7 +18,7 @@ namespace EmuTarkov.Core.Patches
         protected override MethodBase GetTargetMethod()
         {
             return PatcherConstants.TargetAssembly
-                .GetTypes().Single(x => x.GetMethod("SetUrlParam", BindingFlags.Public | BindingFlags.Instance ) != null)
+                .GetTypes().Single(x => x.GetMethod("SetUrlParam", BindingFlags.Public | BindingFlags.Instance) != null)
                 .GetNestedTypes(BindingFlags.NonPublic).Single(y => y.GetConstructor(new[] { typeof(int)}) != null)
                 .GetMethod("MoveNext", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
         }
