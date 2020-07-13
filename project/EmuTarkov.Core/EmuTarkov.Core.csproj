@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\Shared\References\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\Shared\References\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -65,6 +68,7 @@
     <Compile Include="Hook\Target.cs" />
     <Compile Include="Instance.cs" />
     <Compile Include="Patches\BattleEyePatch.cs" />
+    <Compile Include="Patches\NotificationSslPatch.cs" />
     <Compile Include="Patches\SslCertificatePatch.cs" />
     <Compile Include="Patches\UnityWebRequestPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +82,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y /I $(TargetDir)*.dll $(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Unix'">
+      xcopy /Y /I $(TargetDir)*.dll $(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\
+    </PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'Unix'">
+      cp $(TargetDir)*.dll $(SolutionDir)/Build/EscapeFromTarkov_Data/Managed/
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

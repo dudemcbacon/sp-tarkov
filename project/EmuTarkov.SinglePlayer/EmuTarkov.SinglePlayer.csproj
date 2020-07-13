@@ -80,11 +80,13 @@
     <Compile Include="Patches\Bots\SpawnPmcPatch.cs" />
     <Compile Include="Patches\Healing\PlayerPatch.cs" />
     <Compile Include="Patches\Matchmaker\InsuranceScreenPatch.cs" />
+    <Compile Include="Patches\Matchmaker\MatchMakerSelectionLocationScreenPatch.cs" />
     <Compile Include="Patches\Progression\EndByTimerPatch.cs" />
-<<<<<<< HEAD
-=======
-    <Compile Include="Patches\Progression\SingleModeJamPatch.cs" />
->>>>>>> development
+    <Compile Include="Patches\ScavMode\LoadOfflineRaidScreenPatch.cs" />
+    <Compile Include="Patches\ScavMode\ScavExfilPatch.cs" />
+    <Compile Include="Patches\ScavMode\ScavPrefabLoadPatch.cs" />
+    <Compile Include="Patches\ScavMode\ScavProfileLoadPatch.cs" />
+    <Compile Include="Patches\ScavMode\ScavSpawnPointPatch.cs" />
     <Compile Include="Utils\Bots\Difficulty.cs" />
     <Compile Include="Utils\Player\HealthListener.cs" />
     <Compile Include="Patches\Healing\MainMenuControllerPatch.cs" />
@@ -95,7 +97,7 @@
     <Compile Include="Patches\Quests\BeaconPatch.cs" />
     <Compile Include="Patches\Progression\WeaponDurabilityPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Bots\BotSettings.cs" />
+    <Compile Include="Utils\Settings.cs" />
     <Compile Include="Utils\Config.cs" />
     <Compile Include="Utils\Player\PlayerHealth.cs" />
     <Compile Include="Utils\Player\SaveLootUtil.cs" />
@@ -111,9 +113,16 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y /I $(TargetDir)*.dll $(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Unix'">
+      xcopy /Y /I $(TargetDir)*.dll $(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\
+    </PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'Unix'">
+      cp $(TargetDir)*.dll $(SolutionDir)/Build/EscapeFromTarkov_Data/Managed/
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

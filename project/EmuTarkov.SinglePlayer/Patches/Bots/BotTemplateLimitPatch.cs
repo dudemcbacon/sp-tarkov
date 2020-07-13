@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using EFT;
 using EmuTarkov.Common.Utils.Patching;
-using EmuTarkov.SinglePlayer.Utils.Bots;
+using EmuTarkov.SinglePlayer.Utils;
 using WaveInfo = GClass853;
 using BotsPresets = GClass294;
 
@@ -35,7 +34,7 @@ namespace EmuTarkov.SinglePlayer.Patches.Bots
             
             foreach (WaveInfo wave in __result)
             {
-				wave.Limit = BotSettings.Limits[wave.Role];
+				wave.Limit = Settings.Limits[wave.Role];
             }
         }
     }

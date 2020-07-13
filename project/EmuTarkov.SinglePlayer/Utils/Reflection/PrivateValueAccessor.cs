@@ -47,5 +47,10 @@ namespace EmuTarkov.SinglePlayer.Utils.Reflection
         {
             return GetPrivateFieldInfo(type, fieldName).GetValue(o);
         }
+
+        public static void SetPrivateFieldValue(Type type, string fieldName, object o, object value)
+        {
+            GetPrivateFieldInfo(type, fieldName).SetValue(o, value);
+        }
     }
 }

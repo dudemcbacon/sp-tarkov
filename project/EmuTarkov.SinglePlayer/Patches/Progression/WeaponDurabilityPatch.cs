@@ -3,6 +3,7 @@ using System.Reflection;
 using UnityEngine;
 using EFT;
 using EmuTarkov.Common.Utils.Patching;
+using EmuTarkov.SinglePlayer.Utils;
 using AmmoInfo = GClass1555;
 
 namespace EmuTarkov.SinglePlayer.Patches.Progression
@@ -48,6 +49,11 @@ namespace EmuTarkov.SinglePlayer.Patches.Progression
 
         public static void Postfix(Player.FirearmController __instance, AmmoInfo ammo)
         {
+            if (!Settings.WeaponDurabilityEnabled)
+            {
+                return;
+            }
+
             var item = __instance.Item;
             float durability = item.Repairable.Durability;
             float deterioration = ammo.Deterioration;

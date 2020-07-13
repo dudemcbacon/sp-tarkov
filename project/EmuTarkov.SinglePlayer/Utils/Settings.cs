@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using EmuTarkov.Common.Utils.HTTP;
 using UnityEngine;
 using EFT;
+using EmuTarkov.Common.Utils.HTTP;
+using EmuTarkov.SinglePlayer.Utils.Bots;
 
-namespace EmuTarkov.SinglePlayer.Utils.Bots
+namespace EmuTarkov.SinglePlayer.Utils
 {
-    public class BotSettings
+    public class Settings
     {
 		private static string Session;
 		private static string BackendUrl;
@@ -14,13 +15,18 @@ namespace EmuTarkov.SinglePlayer.Utils.Bots
 		public static Dictionary<WildSpawnType, int> Limits { get; private set; }
 		public static List<Difficulty> Difficulties { get; private set; }
 		public static string CoreDifficulty { get; private set; }
+        public static bool WeaponDurabilityEnabled { get; private set; }
 
-		public BotSettings(string session, string backendUrl)
+		public Settings(string session, string backendUrl)
 		{
 			Limits = new Dictionary<WildSpawnType, int>();
 			Difficulties = new List<Difficulty>();
 			Session = session;
 			BackendUrl = backendUrl;
+
+            // request weapon durability enabled
+            WeaponDurabilityEnabled = false;
+            RequestWeaponDurabilityState();
 
 			// set core values
 			CoreDifficulty = null;
@@ -56,7 +62,7 @@ namespace EmuTarkov.SinglePlayer.Utils.Bots
 
 		private static void RequestLimit(WildSpawnType role)
 		{
-			string json = new Request(Session, BackendUrl).GetJson("/client/game/bot/limit/" + role.ToString());
+			string json = new Request(Session, BackendUrl).GetJson("/singleplayer/settings/bot/limit/" + role.ToString());
 
 			if (string.IsNullOrEmpty(json))
 			{
@@ -70,7 +76,7 @@ namespace EmuTarkov.SinglePlayer.Utils.Bots
 
 		private static Difficulty RequestDifficulty(WildSpawnType role, BotDifficulty botDifficulty, Difficulty difficulty)
 		{
-			string json = new Request(Session, BackendUrl).GetJson("/client/game/bot/difficulty/" + role.ToString() + "/" + botDifficulty.ToString());
+			string json = new Request(Session, BackendUrl).GetJson("/singleplayer/settings/bot/difficulty/" + role.ToString() + "/" + botDifficulty.ToString());
 
 			if (string.IsNullOrEmpty(json))
 			{
@@ -85,7 +91,7 @@ namespace EmuTarkov.SinglePlayer.Utils.Bots
 
 		private static void RequestCoreDifficulty()
 		{
-			string json = new Request(Session, BackendUrl).GetJson("/client/game/bot/difficulty/core/core");
+			string json = new Request(Session, BackendUrl).GetJson("/singleplayer/settings/bot/difficulty/core/core");
 
 			if (string.IsNullOrEmpty(json))
 			{
@@ -93,8 +99,22 @@ namespace EmuTarkov.SinglePlayer.Utils.Bots
 				return;
 			}
 
-			Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully core bot difficulty data");
+			Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received core bot difficulty data");
 			CoreDifficulty = json;
 		}
-	}
+
+        private static void RequestWeaponDurabilityState()
+        {
+            string json = new Request(Session, BackendUrl).GetJson("/singleplayer/settings/weapon/durability/");
+
+            if (string.IsNullOrEmpty(json))
+            {
+                Debug.LogError("EmuTarkov.SinglePlayer: Received weapon durability state data is NULL, using fallback");
+                return;
+            }
+
+            Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received weapon durability state");
+            WeaponDurabilityEnabled = Convert.ToBoolean(json);
+        }
+    }
 }

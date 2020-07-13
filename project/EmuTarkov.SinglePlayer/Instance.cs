@@ -4,7 +4,8 @@ using EmuTarkov.SinglePlayer.Patches.Bots;
 using EmuTarkov.SinglePlayer.Patches.Matchmaker;
 using EmuTarkov.SinglePlayer.Patches.Progression;
 using EmuTarkov.SinglePlayer.Patches.Quests;
-using EmuTarkov.SinglePlayer.Utils.Bots;
+using EmuTarkov.SinglePlayer.Patches.ScavMode;
+using EmuTarkov.SinglePlayer.Utils;
 
 namespace EmuTarkov.SinglePlayer
 {
@@ -15,7 +16,7 @@ namespace EmuTarkov.SinglePlayer
             Debug.LogError("EmuTarkov.SinglePlayer: Loaded");
 
 			// todo: find a way to get php session id
-			new BotSettings(null, Utils.Config.BackendUrl);
+			new Settings(null, Utils.Config.BackendUrl);
 
 			PatcherUtil.PatchPrefix<OfflineLootPatch>();
 			PatcherUtil.PatchPrefix<OfflineSaveProfilePatch>();
@@ -31,7 +32,8 @@ namespace EmuTarkov.SinglePlayer
 			PatcherUtil.Patch<Patches.Healing.PlayerPatch>();
 
 			PatcherUtil.PatchPostfix<MatchmakerOfflineRaidPatch>();
-            PatcherUtil.Patch<InsuranceScreenPatch>();
+			PatcherUtil.PatchPostfix<MatchMakerSelectionLocationScreenPatch>();
+			PatcherUtil.Patch<InsuranceScreenPatch>();
 
 			PatcherUtil.PatchPostfix<BotTemplateLimitPatch>();
             PatcherUtil.PatchPrefix<GetNewBotTemplatesPatch>();
@@ -43,7 +45,13 @@ namespace EmuTarkov.SinglePlayer
 			PatcherUtil.PatchPrefix<BeaconPatch>();
 			PatcherUtil.PatchPostfix<DogtagPatch>();
 
-			PatcherUtil.Patch<EndByTimerPatch>();
+            PatcherUtil.Patch<LoadOfflineRaidScreenPatch>();
+            PatcherUtil.Patch<ScavPrefabLoadPatch>();
+            PatcherUtil.Patch<ScavProfileLoadPatch>();
+            PatcherUtil.Patch<ScavSpawnPointPatch>();
+            PatcherUtil.Patch<ScavExfilPatch>();
+
+            PatcherUtil.Patch<EndByTimerPatch>();
         }
     }
 }

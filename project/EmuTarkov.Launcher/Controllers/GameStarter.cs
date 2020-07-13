@@ -12,10 +12,11 @@ namespace EmuTarkov.Launcher
 		public int LaunchGame(ServerInfo server, AccountInfo account)
 		{
 			string clientExecutable = "EscapeFromTarkov.exe";
+			bool legalCopy = false;
 
 			if (account.wipe)
 			{
-				RemoveRegisteryKeys();
+				legalCopy = RemoveRegisteryKeys();
 				CleanTempFiles();
 			}
 
@@ -23,24 +24,20 @@ namespace EmuTarkov.Launcher
 			{
 				return -1;
 			}
-
-			ClientConfig clientConfig = JsonHandler.LoadClientConfig();
-			clientConfig.BackendUrl = server.backendUrl;
-			JsonHandler.SaveClientConfig(clientConfig);
-
+			
 			ProcessStartInfo clientProcess = new ProcessStartInfo(clientExecutable)
 			{
-				Arguments = "-bC5vLmcuaS5u=" + GenerateToken(account) + " -token=" + account.id + " -screenmode=fullscreen -window-mode=borderless",
+				Arguments = string.Format("-bC5vLmcuaS5u={0} -token={1} -config={2}", GenerateToken(account), account.id, Json.Serialize(new ClientConfig(server.backendUrl))),
 				UseShellExecute = false,
 				WorkingDirectory = Environment.CurrentDirectory
 			};
 
 			Process.Start(clientProcess);
 
-			return 1;
+			return (legalCopy) ? 1 : 2;
 		}
 
-		private void RemoveRegisteryKeys()
+		private bool RemoveRegisteryKeys()
 		{
 			try
 			{
@@ -50,10 +47,13 @@ namespace EmuTarkov.Launcher
 				{
 					key.DeleteValue(value);
 				}
+
+				return true;
 			}
 			catch
 			{
-				// very first time launching tarkov, maybe display a message that one should buy the game to support the devs?
+				// first time launching tarkov, illegal copy detected.
+				return false;
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace EmuTarkov.Launcher
 		{
 			LoginToken token = new LoginToken(data.email, data.password);
 			string serialized = Json.Serialize(token);
-			return Convert.ToBase64String(Encoding.UTF8.GetBytes(serialized)) + "=";
+			return string.Format("{0}=", Convert.ToBase64String(Encoding.UTF8.GetBytes(serialized)));
 		}
 	}
 }

@@ -279,6 +279,11 @@ namespace EmuTarkov.Launcher
 					ShowProfileView();
 					break;
 
+				case 2:
+					// fallthrough behaviour intended
+					MessageBox.Show("You either never ran Escape From Tarkov before or are using an illegal copy. Please buy a copy of the game and support the developers!");
+					goto case 1;
+
 				case -1:
 					MessageBox.Show("Account already exists");
 					return;
