@@ -9,18 +9,25 @@ namespace EmuTarkov.Launcher
 {
 	public class GameStarter
 	{
-		public int LaunchGame(ServerInfo server, AccountInfo account)
+        private const string clientExecutable = "EscapeFromTarkov.exe";
+        private const string registeryInstall = @"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkov";
+        private const string registerySettings = @"Software\Battlestate Games\EscapeFromTarkov";
+        private const string tempDir = @"Battlestate Games\EscapeFromTarkov";
+
+        public int LaunchGame(ServerInfo server, AccountInfo account)
 		{
-			string clientExecutable = "EscapeFromTarkov.exe";
-			bool legalCopy = false;
+            if (IsPiratedCopy())
+            {
+                return 2;
+            }
 
-			if (account.wipe)
-			{
-				legalCopy = RemoveRegisteryKeys();
-				CleanTempFiles();
-			}
+            if (account.wipe)
+            {
+                RemoveRegisteryKeys();
+                CleanTempFiles();
+            }
 
-			if (!File.Exists(clientExecutable))
+            if (!File.Exists(clientExecutable))
 			{
 				return -1;
 			}
@@ -34,32 +41,48 @@ namespace EmuTarkov.Launcher
 
 			Process.Start(clientProcess);
 
-			return (legalCopy) ? 1 : 2;
+			return 1;
 		}
 
-		private bool RemoveRegisteryKeys()
+        private bool IsPiratedCopy()
+        {
+            try
+            {
+                var value = Registry.LocalMachine.OpenSubKey(registeryInstall, false).GetValue("UninstallString");
+                string filepath = (value != null) ? value.ToString() : "";
+
+                if (!string.IsNullOrEmpty(filepath) && File.Exists(filepath))
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            // escape from tarkov is not installed
+            return true;
+        }
+
+		private void RemoveRegisteryKeys()
 		{
 			try
 			{
-				RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Battlestate Games\EscapeFromTarkov", true);
+				RegistryKey key = Registry.CurrentUser.OpenSubKey(registerySettings, true);
 
 				foreach (string value in key.GetValueNames())
 				{
 					key.DeleteValue(value);
 				}
-
-				return true;
 			}
 			catch
 			{
-				// first time launching tarkov, illegal copy detected.
-				return false;
 			}
 		}
 
 		private void CleanTempFiles()
 		{
-			string tempDir = @"Battlestate Games\EscapeFromTarkov";
 			DirectoryInfo directoryInfo = new DirectoryInfo(Path.Combine(Path.GetTempPath(), tempDir));
 
 			if (!Directory.Exists(tempDir))

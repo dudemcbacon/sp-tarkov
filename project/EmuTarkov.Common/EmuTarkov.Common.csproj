@@ -41,7 +41,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Shared\References\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\Shared\References\NLog.dll</HintPath>
