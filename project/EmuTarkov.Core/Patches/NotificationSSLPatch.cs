@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 using System.Reflection.Emit;
-using EmuTarkov.Common.Utils.Patching;
-using HarmonyLib;
-using UnityEngine;
 using UnityEngine.Networking;
+using HarmonyLib;
+using EmuTarkov.Common.Utils.Patching;
 
 namespace EmuTarkov.Core.Patches
 {
     public class NotificationSslPatch : GenericPatch<NotificationSslPatch>
     {
-        public NotificationSslPatch() : base(transpiler: nameof(PatchTranspiler)) {
+        public NotificationSslPatch() : base(transpiler: nameof(PatchTranspiler))
+        {
         }
 
         protected override MethodBase GetTargetMethod()
         {
             return PatcherConstants.TargetAssembly
-                .GetType(nameof(GClass1182))
-                .GetNestedTypes(BindingFlags.NonPublic).Single(y => y.Name == "Class1034")
+                .GetTypes().Single(x => x.GetMethod("SetUrlParam", BindingFlags.Public | BindingFlags.Instance ) != null)
+                .GetNestedTypes(BindingFlags.NonPublic).Single(y => y.GetConstructor(new[] { typeof(int)}) != null)
                 .GetMethod("MoveNext", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
         }
 
@@ -72,16 +70,16 @@ namespace EmuTarkov.Core.Patches
         */
         static IEnumerable<CodeInstruction> PatchTranspiler(IEnumerable<CodeInstruction> instructions)
         {
-            var codes = new List<CodeInstruction>(instructions);
+            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
 
-            var index = 129;
-            var dupCode = new CodeInstruction(OpCodes.Dup);
+            int index = 129;
+            CodeInstruction dupCode = new CodeInstruction(OpCodes.Dup);
 
-            var certificateHandlerType = PatcherConstants.TargetAssembly.GetTypes().Single(x => x.BaseType == typeof(CertificateHandler));
-            var newObjCode = new CodeInstruction(OpCodes.Newobj, AccessTools.Constructor(certificateHandlerType));
-            var callVirtCode = new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(UnityWebRequest), "set_certificateHandler"));
+            Type certificateHandlerType = PatcherConstants.TargetAssembly.GetTypes().Single(x => x.BaseType == typeof(CertificateHandler));
+            CodeInstruction newObjCode = new CodeInstruction(OpCodes.Newobj, AccessTools.Constructor(certificateHandlerType));
+            CodeInstruction callVirtCode = new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(UnityWebRequest), "set_certificateHandler"));
 
-            var insertCodes = new List<CodeInstruction>()
+            List<CodeInstruction> insertCodes = new List<CodeInstruction>()
             {
                 dupCode,
                 newObjCode,
