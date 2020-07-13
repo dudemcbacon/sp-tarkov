@@ -56,9 +56,8 @@ namespace EmuTarkov.Launcher
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
             }
 
             // escape from tarkov is not installed
