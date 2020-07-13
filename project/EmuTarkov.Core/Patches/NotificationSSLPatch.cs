@@ -70,16 +70,16 @@ namespace EmuTarkov.Core.Patches
         */
         static IEnumerable<CodeInstruction> PatchTranspiler(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+            var codes = new List<CodeInstruction>(instructions);
 
-            int index = 129;
-            CodeInstruction dupCode = new CodeInstruction(OpCodes.Dup);
+            var index = 129;
+            var dupCode = new CodeInstruction(OpCodes.Dup);
 
-            Type certificateHandlerType = PatcherConstants.TargetAssembly.GetTypes().Single(x => x.BaseType == typeof(CertificateHandler));
-            CodeInstruction newObjCode = new CodeInstruction(OpCodes.Newobj, AccessTools.Constructor(certificateHandlerType));
-            CodeInstruction callVirtCode = new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(UnityWebRequest), "set_certificateHandler"));
+            var certificateHandlerType = PatcherConstants.TargetAssembly.GetTypes().Single(x => x.BaseType == typeof(CertificateHandler));
+            var newObjCode = new CodeInstruction(OpCodes.Newobj, AccessTools.Constructor(certificateHandlerType));
+            var callVirtCode = new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(UnityWebRequest), "set_certificateHandler"));
 
-            List<CodeInstruction> insertCodes = new List<CodeInstruction>()
+            var insertCodes = new List<CodeInstruction>()
             {
                 dupCode,
                 newObjCode,
