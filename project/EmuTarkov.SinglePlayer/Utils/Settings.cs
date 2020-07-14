@@ -77,7 +77,7 @@ namespace EmuTarkov.SinglePlayer.Utils
 				return;
 			}
 
-			Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received bot " + role.ToString() + " limit data");
+			Debug.LogError("EmuTarkov.SinglePlayer: Successfully received bot " + role.ToString() + " limit data");
 			Limits[role] = Convert.ToInt32(json);
 		}
 
@@ -91,7 +91,7 @@ namespace EmuTarkov.SinglePlayer.Utils
 				return null;
 			}
 
-			Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received bot " + role.ToString() + " " + botDifficulty.ToString() + " difficulty data");
+			Debug.LogError("EmuTarkov.SinglePlayer: Successfully received bot " + role.ToString() + " " + botDifficulty.ToString() + " difficulty data");
 			difficulty.Json = json;
 			return difficulty;
 		}
@@ -120,7 +120,7 @@ namespace EmuTarkov.SinglePlayer.Utils
 				return;
 			}
 
-			Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received core bot difficulty data");
+			Debug.LogError("EmuTarkov.SinglePlayer: Successfully received core bot difficulty data");
 			CoreDifficulty = json;
 		}
 
@@ -134,7 +134,7 @@ namespace EmuTarkov.SinglePlayer.Utils
                 return;
             }
 
-            Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received weapon durability state");
+            Debug.LogError("EmuTarkov.SinglePlayer: Successfully received weapon durability state");
             WeaponDurabilityEnabled = Convert.ToBoolean(json);
         }
     }
