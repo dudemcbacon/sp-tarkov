@@ -4,6 +4,8 @@ using UnityEngine;
 using EFT;
 using EmuTarkov.Common.Utils.HTTP;
 using EmuTarkov.SinglePlayer.Utils.Bots;
+using EmuTarkov.SinglePlayer.Utils.DefaultSettings;
+using Newtonsoft.Json;
 
 namespace EmuTarkov.SinglePlayer.Utils
 {
@@ -16,6 +18,7 @@ namespace EmuTarkov.SinglePlayer.Utils
 		public static List<Difficulty> Difficulties { get; private set; }
 		public static string CoreDifficulty { get; private set; }
         public static bool WeaponDurabilityEnabled { get; private set; }
+        public static DefaultRaidSettings DefaultRaidSettings { get; private set; }
 
 		public Settings(string session, string backendUrl)
 		{
@@ -58,7 +61,11 @@ namespace EmuTarkov.SinglePlayer.Utils
 					Difficulties.Add(RequestDifficulty(role, botDifficulty, new Difficulty(role, botDifficulty, null)));
 				}
 			}
-		}
+
+            // set default raid settings
+            DefaultRaidSettings = null;
+            RequestDefaultRaidSettings();
+        }
 
 		private static void RequestLimit(WildSpawnType role)
 		{
@@ -88,6 +95,20 @@ namespace EmuTarkov.SinglePlayer.Utils
 			difficulty.Json = json;
 			return difficulty;
 		}
+
+        private static void RequestDefaultRaidSettings()
+        {
+            string json = new Request(Session, BackendUrl).GetJson("/singleplayer/settings/defaultRaidSettings/");
+
+            if (string.IsNullOrEmpty(json))
+            {
+                Debug.LogError("EmuTarkov.SinglePlayer: Received NULL response for DefaultRaidSettings. Defaulting to fallback.");
+                return;
+            }
+
+            Debug.LogError("EmuTarkov.SinglePlayer: Successfully received DefaultRaidSettings");
+            DefaultRaidSettings = JsonConvert.DeserializeObject<DefaultRaidSettings>(json);
+        }
 
 		private static void RequestCoreDifficulty()
 		{
