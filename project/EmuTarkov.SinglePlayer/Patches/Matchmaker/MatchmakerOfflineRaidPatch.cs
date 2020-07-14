@@ -29,7 +29,7 @@ namespace EmuTarkov.SinglePlayer.Patches.Matchmaker
 
         public override MethodInfo TargetMethod()
         {
-            return typeof(MatchmakerOfflineRaid).GetMethod("Awake", BindingFlags.NonPublic | BindingFlags.Instance);
+            return typeof(MatchmakerOfflineRaid).GetMethod("Show", BindingFlags.NonPublic | BindingFlags.Instance);
         }
     }
 }
