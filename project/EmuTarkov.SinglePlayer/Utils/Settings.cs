@@ -107,7 +107,14 @@ namespace EmuTarkov.SinglePlayer.Utils
             }
 
             Debug.LogError("EmuTarkov.SinglePlayer: Successfully received DefaultRaidSettings");
-            DefaultRaidSettings = JsonConvert.DeserializeObject<DefaultRaidSettings>(json);
+            try
+            {
+                DefaultRaidSettings = JsonConvert.DeserializeObject<DefaultRaidSettings>(json);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError("EmuTarkov.SinglePlayer: Failed to deserialize DefaultRaidSettings from server. Check your gameplay.json config in your server. Defaulting to fallback. Exception: " + exception);
+            }
         }
 
 		private static void RequestCoreDifficulty()
