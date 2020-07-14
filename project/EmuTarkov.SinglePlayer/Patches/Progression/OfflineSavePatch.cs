@@ -4,7 +4,7 @@ using Comfort.Common;
 using EFT;
 using EmuTarkov.Common.Utils.Patching;
 using EmuTarkov.SinglePlayer.Utils.Player;
-using ClientMetrics = GClass1256;
+using ClientMetrics = GClass1258;
 
 namespace EmuTarkov.SinglePlayer.Patches.Progression
 {

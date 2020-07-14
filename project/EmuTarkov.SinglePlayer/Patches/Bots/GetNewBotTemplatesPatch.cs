@@ -8,11 +8,11 @@ using UnityEngine;
 using Comfort.Common;
 using EFT;
 using EmuTarkov.Common.Utils.Patching;
-using WaveInfo = GClass853;
-using BotsPresets = GClass294;
+using WaveInfo = GClass855;
+using BotsPresets = GClass296;
 using BotData = GInterface13;
-using PoolManager = GClass1072;
-using JobPriority = GClass583;
+using PoolManager = GClass1074;
+using JobPriority = GClass585;
 
 namespace EmuTarkov.SinglePlayer.Patches.Bots
 {

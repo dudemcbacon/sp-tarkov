@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
 using ExfilPointManager = GClass646;
-using ProfileInfo = GClass1042;
+using ProfileInfo = GClass1044;
 
 namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 {

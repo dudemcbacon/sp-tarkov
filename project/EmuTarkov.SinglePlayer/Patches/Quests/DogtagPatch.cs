@@ -4,8 +4,8 @@ using UnityEngine;
 using EFT;
 using EFT.InventoryLogic;
 using EmuTarkov.Common.Utils.Patching;
-using Equipment = GClass1538;
-using DamageInfo = GStruct185;
+using Equipment = GClass1540;
+using DamageInfo = GStruct187;
 
 namespace EmuTarkov.SinglePlayer.Patches.Quests
 {

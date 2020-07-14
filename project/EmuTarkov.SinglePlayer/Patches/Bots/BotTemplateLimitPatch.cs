@@ -2,8 +2,8 @@
 using System.Reflection;
 using EmuTarkov.Common.Utils.Patching;
 using EmuTarkov.SinglePlayer.Utils;
-using WaveInfo = GClass853;
-using BotsPresets = GClass294;
+using WaveInfo = GClass855;
+using BotsPresets = GClass296;
 
 namespace EmuTarkov.SinglePlayer.Patches.Bots
 {

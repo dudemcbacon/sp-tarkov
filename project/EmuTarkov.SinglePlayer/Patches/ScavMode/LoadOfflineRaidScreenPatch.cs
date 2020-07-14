@@ -9,11 +9,11 @@ using EmuTarkov.SinglePlayer.Utils.Reflection;
 using EFT;
 using EFT.UI.Matchmaker;
 using EFT.UI.Screens;
-using MenuController = GClass1099;
+using MenuController = GClass1101;
 
 namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 {
-    using OfflineRaidAction = Action<bool, GStruct73, GStruct178, GStruct74>;
+    using OfflineRaidAction = Action<bool, GStruct75, GStruct180, GStruct76>;
 
     public class LoadOfflineRaidScreenPatch : GenericPatch<LoadOfflineRaidScreenPatch>
     {
@@ -22,7 +22,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
         protected override MethodBase GetTargetMethod()
         {
             return typeof(MenuController).GetNestedTypes(BindingFlags.NonPublic)
-                .Single(x => x.Name == "Class761")
+                .Single(x => x.Name == "Class763")
                 .GetMethod("method_2", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
         }
 
@@ -43,12 +43,12 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
         private static MenuController GetMenuController()
         {
             return PrivateValueAccessor.GetPrivateFieldValue(typeof(MainApplication),
-                "gclass1099_0", ClientAppUtils.GetMainApp()) as MenuController;
+                "gclass1101_0", ClientAppUtils.GetMainApp()) as MenuController;
         }
 
 
         // Refer to MatchmakerOfflineRaid's subclass's OnShowNextScreen action definitions if these structs numbers change.
-        public static void LoadOfflineRaidNextScreen(bool local, GStruct73 weatherSettings, GStruct178 botsSettings, GStruct74 wavesSettings)
+        public static void LoadOfflineRaidNextScreen(bool local, GStruct75 weatherSettings, GStruct180 botsSettings, GStruct76 wavesSettings)
         {
             MenuController menuController = GetMenuController();
             if (menuController.SelectedLocation.Id == "laboratory")
@@ -58,8 +58,8 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
             
             SetMenuControllerFieldValue(menuController, "bool_0", local);
 
-            SetMenuControllerFieldValue(menuController, "gstruct178_0", botsSettings);
-            SetMenuControllerFieldValue(menuController, "gstruct74_0", wavesSettings);
+            SetMenuControllerFieldValue(menuController, "gstruct180_0", botsSettings);
+            SetMenuControllerFieldValue(menuController, "gstruct76_0", wavesSettings);
             SetMenuControllerFieldValue(menuController, "gstruct73_0", weatherSettings);
             
             typeof(MenuController).GetMethod("method_36", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(menuController, null);
@@ -69,7 +69,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
         {
             MenuController menuController = GetMenuController();
 
-            MatchmakerOfflineRaid.GClass1850 gclass = new MatchmakerOfflineRaid.GClass1850();
+            MatchmakerOfflineRaid.GClass1852 gclass = new MatchmakerOfflineRaid.GClass1852();
             gclass.OnShowNextScreen += LoadOfflineRaidNextScreen;
             gclass.OnShowReadyScreen += (OfflineRaidAction)Delegate.CreateDelegate(typeof(OfflineRaidAction), (object)menuController, "method_54");
             gclass.ShowScreen(EScreenState.Queued);
