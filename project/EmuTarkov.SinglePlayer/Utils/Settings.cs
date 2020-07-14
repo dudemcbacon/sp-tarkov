@@ -4,6 +4,8 @@ using UnityEngine;
 using EFT;
 using EmuTarkov.Common.Utils.HTTP;
 using EmuTarkov.SinglePlayer.Utils.Bots;
+using EmuTarkov.SinglePlayer.Utils.DefaultSettings;
+using Newtonsoft.Json;
 
 namespace EmuTarkov.SinglePlayer.Utils
 {
@@ -16,6 +18,7 @@ namespace EmuTarkov.SinglePlayer.Utils
 		public static List<Difficulty> Difficulties { get; private set; }
 		public static string CoreDifficulty { get; private set; }
         public static bool WeaponDurabilityEnabled { get; private set; }
+        public static DefaultRaidSettings DefaultRaidSettings { get; private set; }
 
 		public Settings(string session, string backendUrl)
 		{
@@ -58,7 +61,11 @@ namespace EmuTarkov.SinglePlayer.Utils
 					Difficulties.Add(RequestDifficulty(role, botDifficulty, new Difficulty(role, botDifficulty, null)));
 				}
 			}
-		}
+
+            // set default raid settings
+            DefaultRaidSettings = null;
+            RequestDefaultRaidSettings();
+        }
 
 		private static void RequestLimit(WildSpawnType role)
 		{
@@ -70,7 +77,7 @@ namespace EmuTarkov.SinglePlayer.Utils
 				return;
 			}
 
-			Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received bot " + role.ToString() + " limit data");
+			Debug.LogError("EmuTarkov.SinglePlayer: Successfully received bot " + role.ToString() + " limit data");
 			Limits[role] = Convert.ToInt32(json);
 		}
 
@@ -84,10 +91,31 @@ namespace EmuTarkov.SinglePlayer.Utils
 				return null;
 			}
 
-			Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received bot " + role.ToString() + " " + botDifficulty.ToString() + " difficulty data");
+			Debug.LogError("EmuTarkov.SinglePlayer: Successfully received bot " + role.ToString() + " " + botDifficulty.ToString() + " difficulty data");
 			difficulty.Json = json;
 			return difficulty;
 		}
+
+        private static void RequestDefaultRaidSettings()
+        {
+            string json = new Request(Session, BackendUrl).GetJson("/singleplayer/settings/defaultRaidSettings/");
+
+            if (string.IsNullOrEmpty(json))
+            {
+                Debug.LogError("EmuTarkov.SinglePlayer: Received NULL response for DefaultRaidSettings. Defaulting to fallback.");
+                return;
+            }
+
+            Debug.LogError("EmuTarkov.SinglePlayer: Successfully received DefaultRaidSettings");
+            try
+            {
+                DefaultRaidSettings = JsonConvert.DeserializeObject<DefaultRaidSettings>(json);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError("EmuTarkov.SinglePlayer: Failed to deserialize DefaultRaidSettings from server. Check your gameplay.json config in your server. Defaulting to fallback. Exception: " + exception);
+            }
+        }
 
 		private static void RequestCoreDifficulty()
 		{
@@ -99,7 +127,7 @@ namespace EmuTarkov.SinglePlayer.Utils
 				return;
 			}
 
-			Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received core bot difficulty data");
+			Debug.LogError("EmuTarkov.SinglePlayer: Successfully received core bot difficulty data");
 			CoreDifficulty = json;
 		}
 
@@ -113,7 +141,7 @@ namespace EmuTarkov.SinglePlayer.Utils
                 return;
             }
 
-            Debug.LogError("EmuTarkov.SinglePlayer: Sucessfully received weapon durability state");
+            Debug.LogError("EmuTarkov.SinglePlayer: Successfully received weapon durability state");
             WeaponDurabilityEnabled = Convert.ToBoolean(json);
         }
     }

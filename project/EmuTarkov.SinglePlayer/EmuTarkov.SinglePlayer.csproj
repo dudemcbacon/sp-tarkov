@@ -106,6 +106,7 @@
     <Compile Include="Utils\Reflection\LocalGameUtils.cs" />
     <Compile Include="Utils\Reflection\PrivateMethodAccessor.cs" />
     <Compile Include="Utils\Reflection\PrivateValueAccessor.cs" />
+    <Compile Include="Utils\DefaultSettings\DefaultRaidSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmuTarkov.Common\EmuTarkov.Common.csproj">
