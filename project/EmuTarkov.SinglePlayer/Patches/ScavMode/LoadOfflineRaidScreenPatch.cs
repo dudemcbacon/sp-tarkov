@@ -22,7 +22,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
         protected override MethodBase GetTargetMethod()
         {
             return typeof(MenuController).GetNestedTypes(BindingFlags.NonPublic)
-                .Single(x => x.Name == "Class763")
+                .Single(x => x.Name == "Class761")
                 .GetMethod("method_2", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
         }
 
@@ -60,7 +60,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 
             SetMenuControllerFieldValue(menuController, "gstruct180_0", botsSettings);
             SetMenuControllerFieldValue(menuController, "gstruct76_0", wavesSettings);
-            SetMenuControllerFieldValue(menuController, "gstruct73_0", weatherSettings);
+            SetMenuControllerFieldValue(menuController, "gstruct75_0", weatherSettings);
             
             typeof(MenuController).GetMethod("method_36", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(menuController, null);
         }

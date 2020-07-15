@@ -18,7 +18,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 
         protected override MethodBase GetTargetMethod()
         {
-            return typeof(MainApplication).GetNestedType("Struct129", BindingFlags.NonPublic)
+            return typeof(MainApplication).GetNestedType("Struct132", BindingFlags.NonPublic)
                 .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)
                 .FirstOrDefault(x => x.Name == "MoveNext");
         }
