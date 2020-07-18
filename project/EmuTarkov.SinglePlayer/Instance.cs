@@ -30,6 +30,7 @@ namespace EmuTarkov.SinglePlayer
 			PatcherUtil.PatchPostfix<MatchMakerSelectionLocationScreenPatch>();
 			PatcherUtil.Patch<InsuranceScreenPatch>();
 
+            PatcherUtil.Patch<BossSpawnChancePatch>();
 			PatcherUtil.PatchPostfix<BotTemplateLimitPatch>();
             PatcherUtil.PatchPrefix<GetNewBotTemplatesPatch>();
             PatcherUtil.PatchPrefix<RemoveUsedBotProfilePatch>();

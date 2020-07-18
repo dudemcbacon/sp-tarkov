@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Hook\Target.cs" />
     <Compile Include="Instance.cs" />
+    <Compile Include="Patches\Bots\BossSpawnChancePatch.cs" />
     <Compile Include="Patches\Bots\BotTemplateLimitPatch.cs" />
     <Compile Include="Patches\Bots\GetNewBotTemplatesPatch.cs" />
     <Compile Include="Patches\Bots\BotDifficultyPatch.cs" />
