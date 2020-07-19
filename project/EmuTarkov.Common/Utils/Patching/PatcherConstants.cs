@@ -7,6 +7,11 @@ namespace EmuTarkov.Common.Utils.Patching
 {
     public static class PatcherConstants
     {
+        public const BindingFlags DefaultBindingFlags = BindingFlags.NonPublic
+                                               | BindingFlags.Public
+                                               | BindingFlags.Instance
+                                               | BindingFlags.DeclaredOnly;
+
         public static Assembly TargetAssembly = typeof(AbstractGame).Assembly;
         public static Type MainApplicationType = TargetAssembly.GetTypes().Single(x => x.Name == "MainApplication");
         public static Type LocalGameType = TargetAssembly.GetTypes().Single(x => x.Name == "LocalGame");
@@ -21,6 +26,11 @@ namespace EmuTarkov.Common.Utils.Patching
 
         public static Type ExfilPointManagerType = TargetAssembly.GetTypes().Single(x => x.GetMethod("InitAllExfiltrationPoints") != null);
         public static Type ProfileInfoType = TargetAssembly.GetTypes().Single(x => x.GetMethod("GetExperience") != null);
+
+        public static Type FirearmControllerType = typeof(Player.FirearmController).GetNestedTypes().Single(x => x.GetFields(DefaultBindingFlags).
+            Count(y => y.Name.Contains("gclass")) > 0 && x.GetFields(DefaultBindingFlags).Count(y => y.Name.Contains("callback")) > 0 && x.GetMethod("UseSecondMagForReload", DefaultBindingFlags) != null);
+        public static string WeaponControllerFieldName = FirearmControllerType.GetFields(DefaultBindingFlags).
+                Single(x => x.Name.Contains("gclass")).Name;
 
     }
 }

@@ -82,6 +82,7 @@
     <Compile Include="Patches\Healing\PlayerPatch.cs" />
     <Compile Include="Patches\Matchmaker\InsuranceScreenPatch.cs" />
     <Compile Include="Patches\Matchmaker\MatchMakerSelectionLocationScreenPatch.cs" />
+    <Compile Include="Patches\PlayerFix\OnShellEjectEventPatch.cs" />
     <Compile Include="Patches\Progression\EndByTimerPatch.cs" />
     <Compile Include="Patches\Progression\SingleModeJamPatch.cs" />
     <Compile Include="Patches\ScavMode\LoadOfflineRaidScreenPatch.cs" />
