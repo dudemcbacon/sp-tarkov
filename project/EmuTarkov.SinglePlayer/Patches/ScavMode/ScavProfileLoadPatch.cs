@@ -1,14 +1,12 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using EmuTarkov.Common.Utils.Patching;
+using EmuTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
 using EFT;
 using UnityEngine;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
-using BackendInterface = GInterface23;
-using SessionInterface = GInterface24;
-using EmuTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
 
 namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 {
@@ -27,7 +25,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
             var codes = new List<CodeInstruction>(instructions);
 
             // Search for code where backend.Session.getProfile() is called.
-            var searchCode = new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(SessionInterface), "get_Profile"));
+            var searchCode = new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(PatcherConstants.SessionInterfaceType, "get_Profile"));
             int searchIndex = -1;
             for (var i = 0; i < codes.Count; i++)
             {
@@ -57,16 +55,16 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
             {
                 new Code(OpCodes.Ldarg_0),
                 new Code(OpCodes.Ldfld, typeof(ClientApplication), "_backEnd"),
-                new Code(OpCodes.Callvirt, typeof(BackendInterface), "get_Session"),
+                new Code(OpCodes.Callvirt, PatcherConstants.BackendInterfaceType, "get_Session"),
                 new Code(OpCodes.Ldarg_0),
                 new Code(OpCodes.Ldfld, typeof(MainApplication), "esideType_0"),
                 new Code(OpCodes.Ldc_I4_0),
                 new Code(OpCodes.Ceq),
                 new Code(OpCodes.Brfalse, brFalseLabel),
-                new Code(OpCodes.Callvirt, typeof(SessionInterface), "get_Profile"),
+                new Code(OpCodes.Callvirt, PatcherConstants.SessionInterfaceType, "get_Profile"),
                 new Code(OpCodes.Br, brLabel),
-                new CodeWithLabel(OpCodes.Callvirt, brFalseLabel, typeof(SessionInterface), "get_ProfileOfPet"),
-                new CodeWithLabel(OpCodes.Stfld, brLabel, typeof(MainApplication).GetNestedType("Class738", BindingFlags.NonPublic), "profile")
+                new CodeWithLabel(OpCodes.Callvirt, brFalseLabel, PatcherConstants.SessionInterfaceType, "get_ProfileOfPet"),
+                new CodeWithLabel(OpCodes.Stfld, brLabel, typeof(MainApplication).GetNestedTypes(BindingFlags.NonPublic).Single(IsTargetNestedType), "profile")
             });
 
             codes.RemoveRange(searchIndex + 1, 5);
@@ -88,6 +86,12 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
             return true;
         }
 
+        private static bool IsTargetNestedType(System.Type nestedType)
+        {
+            return nestedType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).
+                Count(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ParameterType == typeof(string)) > 0 &&
+                nestedType.GetField("savageProfile") != null;
+        }
 
     }
 }
