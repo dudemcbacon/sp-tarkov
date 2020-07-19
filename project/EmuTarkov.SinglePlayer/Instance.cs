@@ -6,6 +6,7 @@ using EmuTarkov.SinglePlayer.Patches.Progression;
 using EmuTarkov.SinglePlayer.Patches.Quests;
 using EmuTarkov.SinglePlayer.Patches.ScavMode;
 using EmuTarkov.SinglePlayer.Utils;
+using EmuTarkov.SinglePlayer.Patches.PlayerFix;
 
 namespace EmuTarkov.SinglePlayer
 {
@@ -38,7 +39,13 @@ namespace EmuTarkov.SinglePlayer
 			PatcherUtil.PatchPrefix<CoreDifficultyPatch>();
 			PatcherUtil.PatchPrefix<BotDifficultyPatch>();
 
-			PatcherUtil.PatchPrefix<BeaconPatch>();
+            HarmonyLib.Harmony.DEBUG = true;
+            PatcherUtil.Patch<OnDeadPatch>();
+            PatcherUtil.Patch<OnShellEjectEventPatch>();
+            HarmonyLib.Harmony.DEBUG = false;
+
+
+            PatcherUtil.PatchPrefix<BeaconPatch>();
 			PatcherUtil.PatchPostfix<DogtagPatch>();
 
             PatcherUtil.Patch<LoadOfflineRaidScreenPatch>();
