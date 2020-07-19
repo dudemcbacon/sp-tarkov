@@ -8,6 +8,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using BackendInterface = GInterface23;
 using SessionInterface = GInterface24;
+using EmuTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
 
 namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 {
@@ -52,27 +53,21 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
             Label brFalseLabel = generator.DefineLabel();
             Label brLabel = generator.DefineLabel();
 
-            List<CodeInstruction> newCodes = new List<CodeInstruction>()
+            List<CodeInstruction> newCodes = CodeGenerator.GenerateInstructions(new List<Code>()
             {
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(ClientApplication), "_backEnd")),
-                new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(BackendInterface), "get_Session")),
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(MainApplication), "esideType_0")),
-                new CodeInstruction(OpCodes.Ldc_I4_0),
-                new CodeInstruction(OpCodes.Ceq),
-                new CodeInstruction(OpCodes.Brfalse, brFalseLabel),
-                new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(SessionInterface), "get_Profile")),
-                new CodeInstruction(OpCodes.Br, brLabel),
-                new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(SessionInterface), "get_ProfileOfPet"))
-                {
-                    labels = { brFalseLabel }
-                },
-                new CodeInstruction(OpCodes.Stfld, AccessTools.Field(typeof(MainApplication).GetNestedType("Class738", BindingFlags.NonPublic), "profile"))
-                {
-                    labels = { brLabel }
-                }
-            };
+                new Code(OpCodes.Ldarg_0),
+                new Code(OpCodes.Ldfld, typeof(ClientApplication), "_backEnd"),
+                new Code(OpCodes.Callvirt, typeof(BackendInterface), "get_Session"),
+                new Code(OpCodes.Ldarg_0),
+                new Code(OpCodes.Ldfld, typeof(MainApplication), "esideType_0"),
+                new Code(OpCodes.Ldc_I4_0),
+                new Code(OpCodes.Ceq),
+                new Code(OpCodes.Brfalse, brFalseLabel),
+                new Code(OpCodes.Callvirt, typeof(SessionInterface), "get_Profile"),
+                new Code(OpCodes.Br, brLabel),
+                new CodeWithLabel(OpCodes.Callvirt, brFalseLabel, typeof(SessionInterface), "get_ProfileOfPet"),
+                new CodeWithLabel(OpCodes.Stfld, brLabel, typeof(MainApplication).GetNestedType("Class738", BindingFlags.NonPublic), "profile")
+            });
 
             codes.RemoveRange(searchIndex + 1, 5);
             codes.InsertRange(searchIndex + 1, newCodes);

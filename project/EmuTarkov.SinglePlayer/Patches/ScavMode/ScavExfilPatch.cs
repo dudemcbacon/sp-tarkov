@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using EmuTarkov.Common.Utils.Patching;
+using EmuTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
 using EFT;
 using UnityEngine;
 using System.Reflection;
@@ -17,7 +18,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 
         protected override MethodBase GetTargetMethod()
         {
-            return GetBaseLocalGameType().GetMethod("vmethod_4", 
+            return GetBaseLocalGameType().GetMethod("vmethod_4",
                 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.CreateInstance);
         }
 
@@ -46,43 +47,42 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 
             Label brFalseLabel = generator.DefineLabel();
             Label brLabel = generator.DefineLabel();
-
-            List<CodeInstruction> newCodes = new List<CodeInstruction>()
+            List<CodeInstruction> newCodes = CodeGenerator.GenerateInstructions(new List<Code>()
             {
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(GetBaseLocalGameType(), "get_Profile_0")),
-                new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(Profile), "Info")),
-                new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(ProfileInfo), "Side")),
-                new CodeInstruction(OpCodes.Ldc_I4_4),
-                new CodeInstruction(OpCodes.Ceq),
-                new CodeInstruction(OpCodes.Brfalse, brFalseLabel),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ExfilPointManager), "get_Instance")),
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(GetBaseLocalGameType(), "gparam_0")),
-                new CodeInstruction(OpCodes.Box, typeof(PlayerOwner)),
-                new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(PlayerOwner), "get_Player")),
-                new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(Player), "get_Position")),
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(GetBaseLocalGameType(), "get_Profile_0")),
-                new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(Profile), "Id")),
-                new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(ExfilPointManager), "ScavExfiltrationClaim", new System.Type[]{ typeof(Vector3), typeof(string) })),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ExfilPointManager), "get_Instance")),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ExfilPointManager), "get_Instance")),
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(GetBaseLocalGameType(), "get_Profile_0")),
-                new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(Profile), "Id")),
-                new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(ExfilPointManager), "GetScavExfiltrationMask")),
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(GetBaseLocalGameType(), "get_Profile_0")),
-                new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(Profile), "Id")),
-                new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(ExfilPointManager), "ScavExfiltrationClaim", new System.Type[]{ typeof(int), typeof(string) })),
-                new CodeInstruction(OpCodes.Br, brLabel),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ExfilPointManager), "get_Instance")) { labels = { brFalseLabel } },
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(GetBaseLocalGameType(), "get_Profile_0")),
-                new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(ExfilPointManager), "EligiblePoints", new System.Type[]{ typeof(Profile) })),
-                new CodeInstruction(OpCodes.Stloc_0) { labels = { brLabel } }
-            };
+                new Code(OpCodes.Ldarg_0),
+                new Code(OpCodes.Call, GetBaseLocalGameType(), "get_Profile_0"),
+                new Code(OpCodes.Ldfld, typeof(Profile), "Info"),
+                new Code(OpCodes.Ldfld, typeof(ProfileInfo), "Side"),
+                new Code(OpCodes.Ldc_I4_4),
+                new Code(OpCodes.Ceq),
+                new Code(OpCodes.Brfalse, brFalseLabel),
+                new Code(OpCodes.Call, typeof(ExfilPointManager), "get_Instance"),
+                new Code(OpCodes.Ldarg_0),
+                new Code(OpCodes.Ldfld, GetBaseLocalGameType(), "gparam_0"),
+                new Code(OpCodes.Box, typeof(PlayerOwner)),
+                new Code(OpCodes.Callvirt, typeof(PlayerOwner), "get_Player"),
+                new Code(OpCodes.Callvirt, typeof(Player), "get_Position"),
+                new Code(OpCodes.Ldarg_0),
+                new Code(OpCodes.Call, GetBaseLocalGameType(), "get_Profile_0"),
+                new Code(OpCodes.Ldfld, typeof(Profile), "Id"),
+                new Code(OpCodes.Callvirt, typeof(ExfilPointManager), "ScavExfiltrationClaim", new System.Type[]{ typeof(Vector3), typeof(string) }),
+                new Code(OpCodes.Call, typeof(ExfilPointManager), "get_Instance"),
+                new Code(OpCodes.Call, typeof(ExfilPointManager), "get_Instance"),
+                new Code(OpCodes.Ldarg_0),
+                new Code(OpCodes.Call, GetBaseLocalGameType(), "get_Profile_0"),
+                new Code(OpCodes.Ldfld, typeof(Profile), "Id"),
+                new Code(OpCodes.Callvirt, typeof(ExfilPointManager), "GetScavExfiltrationMask"),
+                new Code(OpCodes.Ldarg_0),
+                new Code(OpCodes.Call, GetBaseLocalGameType(), "get_Profile_0"),
+                new Code(OpCodes.Ldfld, typeof(Profile), "Id"),
+                new Code(OpCodes.Callvirt, typeof(ExfilPointManager), "ScavExfiltrationClaim", new System.Type[]{ typeof(int), typeof(string) }),
+                new Code(OpCodes.Br, brLabel),
+                new CodeWithLabel(OpCodes.Call, brFalseLabel, typeof(ExfilPointManager), "get_Instance"),
+                new Code(OpCodes.Ldarg_0),
+                new Code(OpCodes.Call, GetBaseLocalGameType(), "get_Profile_0"),
+                new Code(OpCodes.Callvirt, typeof(ExfilPointManager), "EligiblePoints", new System.Type[]{ typeof(Profile) }),
+                new CodeWithLabel(OpCodes.Stloc_0, brLabel)
+            });
 
             codes.RemoveRange(searchIndex, 5);
             codes.InsertRange(searchIndex, newCodes);
