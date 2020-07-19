@@ -39,11 +39,8 @@ namespace EmuTarkov.SinglePlayer
 			PatcherUtil.PatchPrefix<CoreDifficultyPatch>();
 			PatcherUtil.PatchPrefix<BotDifficultyPatch>();
 
-            HarmonyLib.Harmony.DEBUG = true;
             PatcherUtil.Patch<OnDeadPatch>();
             PatcherUtil.Patch<OnShellEjectEventPatch>();
-            HarmonyLib.Harmony.DEBUG = false;
-
 
             PatcherUtil.PatchPrefix<BeaconPatch>();
 			PatcherUtil.PatchPostfix<DogtagPatch>();
