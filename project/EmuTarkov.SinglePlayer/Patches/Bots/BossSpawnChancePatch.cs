@@ -17,7 +17,10 @@ namespace EmuTarkov.SinglePlayer.Patches.Bots
 
         static void PostfixPatch(ref BossLocationSpawn[] __result)
         {
-            for(var i = 0; i < bossSpawnPercent.Count(); i++)
+            if (__result.Length != bossSpawnPercent.Length)
+                return;
+
+            for(var i = 0; i < bossSpawnPercent.Length; i++)
             {
                 __result[i].BossChance = bossSpawnPercent[i];
             }
