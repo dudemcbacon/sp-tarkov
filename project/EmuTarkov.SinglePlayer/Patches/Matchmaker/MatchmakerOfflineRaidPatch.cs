@@ -1,9 +1,11 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using EFT.UI;
 using EFT.UI.Matchmaker;
 using EmuTarkov.Common.Utils.Patching;
 using EmuTarkov.SinglePlayer.Utils;
 using EmuTarkov.SinglePlayer.Utils.DefaultSettings;
+using UnityEngine;
 
 namespace EmuTarkov.SinglePlayer.Patches.Matchmaker
 {
@@ -18,13 +20,17 @@ namespace EmuTarkov.SinglePlayer.Patches.Matchmaker
             ____botsEnabledToggle.isOn = true;
 
             DefaultRaidSettings defaultRaidSettings = Settings.DefaultRaidSettings;
-            if (defaultRaidSettings != null) {
+            if (defaultRaidSettings != null)
+            {
                 ____aiAmountDropdown.UpdateValue((int)defaultRaidSettings.AiAmount, false);
                 ____aiDifficultyDropdown.UpdateValue((int)defaultRaidSettings.AiDifficulty, false);
                 ____enableBosses.isOn = defaultRaidSettings.BossEnabled;
                 ____scavWars.isOn = defaultRaidSettings.ScavWars;
                 ____taggedAndCursed.isOn = defaultRaidSettings.TaggedAndCursed;
             }
+
+            var warningPanel = GameObject.Find("Warning Panel");
+            UnityEngine.Object.Destroy(warningPanel);
         }
 
         public override MethodInfo TargetMethod()
