@@ -7,6 +7,7 @@ using EmuTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
 using EFT;
 using UnityEngine;
 using HarmonyLib;
+using EmuTarkov.SinglePlayer.Utils;
 
 namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 {
@@ -41,7 +42,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
             // Patch failed.
             if (searchIndex == -1)
             {
-                Debug.LogError("Patch " + MethodBase.GetCurrentMethod().DeclaringType.Name + "failed: Could not find reference code.");
+                PatchLogger.LogTranspileSearchError(MethodBase.GetCurrentMethod());
                 return instructions;
             }
 

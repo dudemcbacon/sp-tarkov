@@ -43,7 +43,7 @@ namespace EmuTarkov.SinglePlayer.Patches.RaidFix
             // Patch failed
             if (searchIndex == -1)
             {
-                Debug.LogError("Patch " + MethodBase.GetCurrentMethod().DeclaringType.Name + "failed: Could not find reference code.");
+                PatchLogger.LogTranspileSearchError(MethodBase.GetCurrentMethod());
                 return instructions;
             }
 

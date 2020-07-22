@@ -1,5 +1,6 @@
 ﻿using EFT;
 using EmuTarkov.Common.Utils.Patching;
+using EmuTarkov.SinglePlayer.Utils;
 using EmuTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
 using HarmonyLib;
 using System;
@@ -41,7 +42,7 @@ namespace EmuTarkov.SinglePlayer.Patches.RaidFix
             // Patch failed
             if (searchIndex == -1)
             {
-                Debug.LogError("Patch " + MethodBase.GetCurrentMethod().DeclaringType.Name + "failed: Could not find reference code");
+                PatchLogger.LogTranspileSearchError(MethodBase.GetCurrentMethod());
                 return instructions;
             }
 
@@ -79,7 +80,7 @@ namespace EmuTarkov.SinglePlayer.Patches.RaidFix
 
             if (playIndex == -1 || matchIndex == -1 || lastCallIndex == -1)
             {
-                Debug.LogError("Patch " + MethodBase.GetCurrentMethod().DeclaringType.Name + "failed: Could not callvirt instructions.");
+                PatchLogger.LogPatchErrorWithMessage(MethodBase.GetCurrentMethod(), "Could not callvirt instructions.");
                 return instructions;
             }
 
