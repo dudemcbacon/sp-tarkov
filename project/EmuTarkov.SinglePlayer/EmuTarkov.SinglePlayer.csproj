@@ -93,7 +93,7 @@
     <Compile Include="Patches\ScavMode\ScavProfileLoadPatch.cs" />
     <Compile Include="Patches\ScavMode\ScavSpawnPointPatch.cs" />
     <Compile Include="Utils\Bots\Difficulty.cs" />
-    <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Utils\PatchLogger.cs" />
     <Compile Include="Utils\Player\HealthListener.cs" />
     <Compile Include="Patches\Healing\MainMenuControllerPatch.cs" />
     <Compile Include="Patches\Quests\DogtagPatch.cs" />

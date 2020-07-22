@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EFT.Interactive;
 using EmuTarkov.Common.Utils.Patching;
+using EmuTarkov.SinglePlayer.Utils;
 using EmuTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
 using HarmonyLib;
 using UnityEngine;
