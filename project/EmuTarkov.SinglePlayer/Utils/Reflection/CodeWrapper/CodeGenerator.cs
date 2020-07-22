@@ -38,7 +38,8 @@ namespace EmuTarkov.SinglePlayer.Utils.Reflection.CodeWrapper
                     return new CodeInstruction(code.OpCode, code.CallerType) { labels = GetLabelList(code) };
                 }
                 
-                if (code.OpCode == OpCodes.Br || code.OpCode == OpCodes.Brfalse || code.OpCode == OpCodes.Brtrue)
+                if (code.OpCode == OpCodes.Br || code.OpCode == OpCodes.Brfalse || code.OpCode == OpCodes.Brtrue || code.OpCode == OpCodes.Brtrue_S
+                    || code.OpCode == OpCodes.Brfalse_S || code.OpCode == OpCodes.Br_S)
                 {
                     return new CodeInstruction(code.OpCode, code.OperandTarget) { labels = GetLabelList(code) };
                 }
