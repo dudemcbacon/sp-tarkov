@@ -16,7 +16,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
 
         protected override MethodBase GetTargetMethod()
         {
-            return PatcherConstants.BaseLocalGameType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.CreateInstance).Single(IsTargetMethod);
+            return PatcherConstants.LocalGameType.BaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.CreateInstance).Single(IsTargetMethod);
         }
 
         static IEnumerable<CodeInstruction> PatchTranspile(ILGenerator generator, IEnumerable<CodeInstruction> instructions)
@@ -48,7 +48,7 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
             List<CodeInstruction> newCodes = CodeGenerator.GenerateInstructions(new List<Code>()
             {
                 new Code(OpCodes.Ldarg_0),
-                new Code(OpCodes.Call, PatcherConstants.BaseLocalGameType, "get_Profile_0"),
+                new Code(OpCodes.Call, PatcherConstants.LocalGameType.BaseType, "get_Profile_0"),
                 new Code(OpCodes.Ldfld, typeof(Profile), "Info"),
                 new Code(OpCodes.Ldfld, PatcherConstants.ProfileInfoType, "Side"),
                 new Code(OpCodes.Ldc_I4_4),
@@ -56,28 +56,28 @@ namespace EmuTarkov.SinglePlayer.Patches.ScavMode
                 new Code(OpCodes.Brfalse, brFalseLabel),
                 new Code(OpCodes.Call, PatcherConstants.ExfilPointManagerType, "get_Instance"),
                 new Code(OpCodes.Ldarg_0),
-                new Code(OpCodes.Ldfld, PatcherConstants.BaseLocalGameType, "gparam_0"),
+                new Code(OpCodes.Ldfld, PatcherConstants.LocalGameType.BaseType, "gparam_0"),
                 new Code(OpCodes.Box, typeof(PlayerOwner)),
                 new Code(OpCodes.Callvirt, typeof(PlayerOwner), "get_Player"),
                 new Code(OpCodes.Callvirt, typeof(Player), "get_Position"),
                 new Code(OpCodes.Ldarg_0),
-                new Code(OpCodes.Call, PatcherConstants.BaseLocalGameType, "get_Profile_0"),
+                new Code(OpCodes.Call, PatcherConstants.LocalGameType.BaseType, "get_Profile_0"),
                 new Code(OpCodes.Ldfld, typeof(Profile), "Id"),
                 new Code(OpCodes.Callvirt, PatcherConstants.ExfilPointManagerType, "ScavExfiltrationClaim", new System.Type[]{ typeof(Vector3), typeof(string) }),
                 new Code(OpCodes.Call, PatcherConstants.ExfilPointManagerType, "get_Instance"),
                 new Code(OpCodes.Call, PatcherConstants.ExfilPointManagerType, "get_Instance"),
                 new Code(OpCodes.Ldarg_0),
-                new Code(OpCodes.Call, PatcherConstants.BaseLocalGameType, "get_Profile_0"),
+                new Code(OpCodes.Call, PatcherConstants.LocalGameType.BaseType, "get_Profile_0"),
                 new Code(OpCodes.Ldfld, typeof(Profile), "Id"),
                 new Code(OpCodes.Callvirt, PatcherConstants.ExfilPointManagerType, "GetScavExfiltrationMask"),
                 new Code(OpCodes.Ldarg_0),
-                new Code(OpCodes.Call, PatcherConstants.BaseLocalGameType, "get_Profile_0"),
+                new Code(OpCodes.Call, PatcherConstants.LocalGameType.BaseType, "get_Profile_0"),
                 new Code(OpCodes.Ldfld, typeof(Profile), "Id"),
                 new Code(OpCodes.Callvirt, PatcherConstants.ExfilPointManagerType, "ScavExfiltrationClaim", new System.Type[]{ typeof(int), typeof(string) }),
                 new Code(OpCodes.Br, brLabel),
                 new CodeWithLabel(OpCodes.Call, brFalseLabel, PatcherConstants.ExfilPointManagerType, "get_Instance"),
                 new Code(OpCodes.Ldarg_0),
-                new Code(OpCodes.Call, PatcherConstants.BaseLocalGameType, "get_Profile_0"),
+                new Code(OpCodes.Call, PatcherConstants.LocalGameType.BaseType, "get_Profile_0"),
                 new Code(OpCodes.Callvirt, PatcherConstants.ExfilPointManagerType, "EligiblePoints", new System.Type[]{ typeof(Profile) }),
                 new CodeWithLabel(OpCodes.Stloc_0, brLabel)
             });
