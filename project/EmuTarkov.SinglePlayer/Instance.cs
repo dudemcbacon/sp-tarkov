@@ -4,9 +4,9 @@ using EmuTarkov.SinglePlayer.Patches.Bots;
 using EmuTarkov.SinglePlayer.Patches.Matchmaker;
 using EmuTarkov.SinglePlayer.Patches.Progression;
 using EmuTarkov.SinglePlayer.Patches.Quests;
+using EmuTarkov.SinglePlayer.Patches.RaidFix;
 using EmuTarkov.SinglePlayer.Patches.ScavMode;
 using EmuTarkov.SinglePlayer.Utils;
-using EmuTarkov.SinglePlayer.Patches.PlayerFix;
 
 namespace EmuTarkov.SinglePlayer
 {

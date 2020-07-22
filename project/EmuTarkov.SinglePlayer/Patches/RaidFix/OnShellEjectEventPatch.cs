@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using EFT;
 using EmuTarkov.SinglePlayer.Utils.Reflection;
 
-namespace EmuTarkov.SinglePlayer.Patches.PlayerFix
+namespace EmuTarkov.SinglePlayer.Patches.RaidFix
 {
     public class OnShellEjectEventPatch : GenericPatch<OnShellEjectEventPatch>
     {

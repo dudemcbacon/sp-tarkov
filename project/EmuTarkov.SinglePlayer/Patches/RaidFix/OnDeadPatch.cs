@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace EmuTarkov.SinglePlayer.Patches.PlayerFix
+namespace EmuTarkov.SinglePlayer.Patches.RaidFix
 {
     public class OnDeadPatch : GenericPatch<OnDeadPatch>
     {
