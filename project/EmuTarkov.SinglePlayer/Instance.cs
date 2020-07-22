@@ -38,9 +38,10 @@ namespace EmuTarkov.SinglePlayer
             PatcherUtil.PatchPrefix<SpawnPmcPatch>();
 			PatcherUtil.PatchPrefix<CoreDifficultyPatch>();
 			PatcherUtil.PatchPrefix<BotDifficultyPatch>();
-
+            
             PatcherUtil.Patch<OnDeadPatch>();
             PatcherUtil.Patch<OnShellEjectEventPatch>();
+            PatcherUtil.Patch<BotStationaryWeaponPatch>();
 
             PatcherUtil.PatchPrefix<BeaconPatch>();
 			PatcherUtil.PatchPostfix<DogtagPatch>();

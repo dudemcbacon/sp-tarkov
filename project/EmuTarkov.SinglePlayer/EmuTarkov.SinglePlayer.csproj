@@ -86,6 +86,7 @@
     <Compile Include="Patches\RaidFix\OnShellEjectEventPatch.cs" />
     <Compile Include="Patches\Progression\EndByTimerPatch.cs" />
     <Compile Include="Patches\Progression\SingleModeJamPatch.cs" />
+    <Compile Include="Patches\RaidFix\BotStationaryWeaponPatch.cs" />
     <Compile Include="Patches\ScavMode\LoadOfflineRaidScreenPatch.cs" />
     <Compile Include="Patches\ScavMode\ScavExfilPatch.cs" />
     <Compile Include="Patches\ScavMode\ScavPrefabLoadPatch.cs" />
