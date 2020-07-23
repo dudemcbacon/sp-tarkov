@@ -76,6 +76,11 @@ namespace SPTarkov.Launcher
                 }
             }
 
+            if (value0)
+            {
+                File.Delete(@"EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll");
+            }
+
             return value0;
         }
 
