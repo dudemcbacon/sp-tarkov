@@ -16,12 +16,12 @@ namespace SPTarkov.Launcher
 
         public int LaunchGame(ServerInfo server, AccountInfo account)
 		{
-            SetupGameFiles();
-
             if (IsInstalledInLive())
             {
                 return -1;
             }
+
+            SetupGameFiles();
 
             if (IsPiratedCopy() > 1)
             {
