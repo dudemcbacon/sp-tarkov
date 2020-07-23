@@ -56,8 +56,8 @@ namespace SPTarkov.Launcher
                 var value4 = new FileInfo[3]
                 {
                     value3,
-                    new FileInfo(value2.Replace(value3.Name, @"BattlEye/BEClient_x64.dll")),
-                    new FileInfo(value2.Replace(value3.Name, @"BattlEye/BEService_x64.dll"))
+                    new FileInfo(value2.Replace(value3.Name, @"BattlEye\BEClient_x64.dll")),
+                    new FileInfo(value2.Replace(value3.Name, @"BattlEye\BEService_x64.dll"))
                 };
 
                 foreach (var value in value4)
