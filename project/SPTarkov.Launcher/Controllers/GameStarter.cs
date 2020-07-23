@@ -18,9 +18,14 @@ namespace SPTarkov.Launcher
 		{
             SetupGameFiles();
 
+            if (IsInstalledInLive())
+            {
+                return -1;
+            }
+
             if (IsPiratedCopy() > 1)
             {
-                return 2;
+                return -2;
             }
 
             if (account.wipe)
@@ -31,7 +36,7 @@ namespace SPTarkov.Launcher
 
             if (!File.Exists(clientExecutable))
 			{
-				return -1;
+				return -3;
 			}
 			
 			ProcessStartInfo clientProcess = new ProcessStartInfo(clientExecutable)
@@ -45,6 +50,16 @@ namespace SPTarkov.Launcher
 
 			return 1;
 		}
+
+        private bool IsInstalledInLive()
+        {
+            var value1 = Registry.LocalMachine.OpenSubKey(registeryInstall, false).GetValue("UninstallString");
+            var value2 = (value1 != null) ? value1.ToString() : "";
+            var value3 = new FileInfo(value2);
+            var value4 = new FileInfo(value2.Replace(value3.Name, @"Launcher.exe"));
+
+            return File.Exists(value4.FullName);
+        }
 
         private void SetupGameFiles()
         {

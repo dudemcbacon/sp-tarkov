@@ -311,11 +311,6 @@ namespace SPTarkov.Launcher
 
 			switch (status)
 			{
-                case 2:
-                    // fallthrough behaviour intended
-                    MessageBox.Show("Escape From Tarkov isn't installed on your computer. Please buy a copy of the game and support the developers!");
-                    goto case 1;
-
                 case 1:
 					monitor.Start();
 
@@ -326,11 +321,19 @@ namespace SPTarkov.Launcher
 					}
 					break;
 
-				case -1:
-					MessageBox.Show("The launcher is not running from the game directory");
-					return;
-			}
-		}
+                case -1:
+                    MessageBox.Show("SPTarkov shouldn't be installed into live game. Please make a copy of the gamefiles and install SPTarkov there.");
+                    break;
+
+                case -2:
+                    MessageBox.Show("Escape From Tarkov isn't installed on your computer. Please buy a copy of the game and support the developers!");
+                    break;
+
+                case -3:
+                    MessageBox.Show("The launcher is not running from the game directory");
+                    return;
+            }
+        }
 
 		private void BackToLoginButton_Click(object sender, EventArgs e)
 		{
