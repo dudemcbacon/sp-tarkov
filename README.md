@@ -1,11 +1,11 @@
-# EmuTarkov-Modules
+# SPTarkov-Modules
 Client-side runtime patches to alter the client's behaviour.
 
 ## Modules
-- EmuTarkov.Common: utilities used across modules.
-- EmuTarkov.Core: required patches for the game to run.
-- EmuTarkov.SinglePlayer: simulating online game offline.
-- EmuTarkov.Launcher: a custom game launcher allows the game to be launched offline.
+- SPTarkov.Common: utilities used across modules.
+- SPTarkov.Core: required patches for the game to run.
+- SPTarkov.SinglePlayer: simulating online game offline.
+- SPTarkov.Launcher: a custom game launcher allows the game to be launched offline.
 
 ## Requirements
 - Visual Studio 2017 (.NET desktop workload) or newer
@@ -25,7 +25,4 @@ All dependencies are provided, no additional setup required.
 - KruncyBite
 - PoloYolo
 - Craink
-- Stingray
 - BALIST0N
-- Apofis
-- TheMaoci
