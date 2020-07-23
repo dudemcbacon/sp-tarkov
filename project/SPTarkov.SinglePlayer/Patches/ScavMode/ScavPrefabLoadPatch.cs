@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using HarmonyLib;
+using EFT;
+using SPTarkov.SinglePlayer.Utils;
 using SPTarkov.Common.Utils.Patching;
 using SPTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
-using EFT;
-using UnityEngine;
-using HarmonyLib;
-using SPTarkov.SinglePlayer.Utils;
 
 namespace SPTarkov.SinglePlayer.Patches.ScavMode
 {

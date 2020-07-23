@@ -1,16 +1,13 @@
-﻿using EFT;
-using SPTarkov.Common.Utils.Patching;
-using SPTarkov.SinglePlayer.Utils;
-using SPTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
-using HarmonyLib;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
+using HarmonyLib;
+using EFT;
+using SPTarkov.Common.Utils.Patching;
+using SPTarkov.SinglePlayer.Utils;
+using SPTarkov.SinglePlayer.Utils.Reflection.CodeWrapper;
 
 namespace SPTarkov.SinglePlayer.Patches.RaidFix
 {

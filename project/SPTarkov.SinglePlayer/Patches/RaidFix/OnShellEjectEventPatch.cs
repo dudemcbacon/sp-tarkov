@@ -1,11 +1,5 @@
-﻿using SPTarkov.Common.Utils.Patching;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using EFT;
+﻿using System.Reflection;
+using SPTarkov.Common.Utils.Patching;
 using SPTarkov.SinglePlayer.Utils.Reflection;
 
 namespace SPTarkov.SinglePlayer.Patches.RaidFix
@@ -22,11 +16,7 @@ namespace SPTarkov.SinglePlayer.Patches.RaidFix
         static bool PatchPrefix(object __instance)
         {
             object weaponController = PrivateValueAccessor.GetPrivateFieldValue(PatcherConstants.FirearmControllerType, PatcherConstants.WeaponControllerFieldName, __instance);
-            if (weaponController.GetType().GetField("RemoveFromChamberResult").GetValue(weaponController) == null)
-            {
-                return false;
-            }
-            return true;
+            return (weaponController.GetType().GetField("RemoveFromChamberResult").GetValue(weaponController) == null) ? false : true;
         }
     }
 }

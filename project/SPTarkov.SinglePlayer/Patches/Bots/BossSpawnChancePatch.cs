@@ -1,6 +1,6 @@
-﻿using SPTarkov.Common.Utils.Patching;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
+using SPTarkov.Common.Utils.Patching;
 
 namespace SPTarkov.SinglePlayer.Patches.Bots
 {
@@ -18,9 +18,11 @@ namespace SPTarkov.SinglePlayer.Patches.Bots
         static void PostfixPatch(ref BossLocationSpawn[] __result)
         {
             if (__result.Length != bossSpawnPercent.Length)
+            {
                 return;
+            }
 
-            for(var i = 0; i < bossSpawnPercent.Length; i++)
+            for (var i = 0; i < bossSpawnPercent.Length; i++)
             {
                 __result[i].BossChance = bossSpawnPercent[i];
             }
@@ -36,11 +38,7 @@ namespace SPTarkov.SinglePlayer.Patches.Bots
         private static bool IsTargetMethod(MethodInfo mi)
         {
             var parameters = mi.GetParameters();
-            if (parameters.Length != 2
-             || parameters[0].Name != "wavesSettings"
-             || parameters[1].Name != "bossLocationSpawn")
-                return false;
-            return true;
+            return (parameters.Length != 2 || parameters[0].Name != "wavesSettings" || parameters[1].Name != "bossLocationSpawn") ? false : true;
         }
     }
 }

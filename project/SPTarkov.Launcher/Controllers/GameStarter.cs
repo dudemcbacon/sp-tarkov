@@ -16,7 +16,7 @@ namespace SPTarkov.Launcher
 
         public int LaunchGame(ServerInfo server, AccountInfo account)
 		{
-            if (IsPiratedCopy())
+            if (IsPiratedCopy() > 0)
             {
                 return 2;
             }
@@ -44,24 +44,35 @@ namespace SPTarkov.Launcher
 			return 1;
 		}
 
-        private bool IsPiratedCopy()
+        private int IsPiratedCopy()
         {
+            var value0 = 2;
+
             try
             {
-                var value = Registry.LocalMachine.OpenSubKey(registeryInstall, false).GetValue("UninstallString");
-                string filepath = (value != null) ? value.ToString() : "";
-
-                if (!string.IsNullOrEmpty(filepath) && File.Exists(filepath))
+                var value1 = Registry.LocalMachine.OpenSubKey(registeryInstall, false).GetValue("UninstallString");
+                var value2 = (value1 != null) ? value1.ToString() : "";
+                var value3 = new FileInfo(value2);
+                var value4 = new FileInfo[3]
                 {
-                    return false;
+                    value3,
+                    new FileInfo(value2.Replace(value3.Name, @"BattlEye/BEClient_x64.dll")),
+                    new FileInfo(value2.Replace(value3.Name, @"BattlEye/BEService_x64.dll"))
+                };
+
+                foreach (var value in value4)
+                {
+                    if (File.Exists(value.FullName))
+                    {
+                        --value0;
+                    }
                 }
             }
             catch
             {
             }
 
-            // escape from tarkov is not installed
-            return true;
+            return value0;
         }
 
 		private void RemoveRegisteryKeys()

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
+using UnityEngine;
 using EFT.UI;
 using EFT.UI.Matchmaker;
 using SPTarkov.Common.Utils.Patching;
 using SPTarkov.SinglePlayer.Utils;
 using SPTarkov.SinglePlayer.Utils.DefaultSettings;
-using UnityEngine;
 
 namespace SPTarkov.SinglePlayer.Patches.Matchmaker
 {
@@ -20,6 +19,7 @@ namespace SPTarkov.SinglePlayer.Patches.Matchmaker
             ____botsEnabledToggle.isOn = true;
 
             DefaultRaidSettings defaultRaidSettings = Settings.DefaultRaidSettings;
+
             if (defaultRaidSettings != null)
             {
                 ____aiAmountDropdown.UpdateValue((int)defaultRaidSettings.AiAmount, false);
