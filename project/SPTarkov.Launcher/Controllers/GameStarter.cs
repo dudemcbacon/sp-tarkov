@@ -16,7 +16,9 @@ namespace SPTarkov.Launcher
 
         public int LaunchGame(ServerInfo server, AccountInfo account)
 		{
-            if (IsPiratedCopy() > 0)
+            SetupGameFiles();
+
+            if (IsPiratedCopy() > 1)
             {
                 return 2;
             }
@@ -44,9 +46,37 @@ namespace SPTarkov.Launcher
 			return 1;
 		}
 
+        private void SetupGameFiles()
+        {
+            string filepath = Environment.CurrentDirectory;
+            string[] files = new string[]
+            {
+                Path.Combine(filepath, "BattlEye"),
+                Path.Combine(filepath, "Logs"),
+                Path.Combine(filepath, "ConsistencyInfo"),
+                Path.Combine(filepath, "EscapeFromTarkov_BE.exe"),
+                Path.Combine(filepath, "Uninstall.exe"),
+                Path.Combine(filepath, "UnityCrashHandler64.exe"),
+                Path.Combine(filepath, "WinPixEventRuntime.dll")
+            };
+
+            foreach (string file in files)
+            {
+                if (Directory.Exists(file))
+                {
+                    Directory.Delete(file, true);
+                }
+
+                if (File.Exists(file))
+                {
+                    File.Delete(file);
+                }
+            }
+        }
+
         private int IsPiratedCopy()
         {
-            var value0 = 2;
+            var value0 = 0;
 
             try
             {
@@ -59,6 +89,8 @@ namespace SPTarkov.Launcher
                     new FileInfo(value2.Replace(value3.Name, @"BattlEye\BEClient_x64.dll")),
                     new FileInfo(value2.Replace(value3.Name, @"BattlEye\BEService_x64.dll"))
                 };
+
+                value0 = value4.Length;
 
                 foreach (var value in value4)
                 {
