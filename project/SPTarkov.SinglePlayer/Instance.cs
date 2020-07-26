@@ -22,14 +22,9 @@ namespace SPTarkov.SinglePlayer
 			PatcherUtil.PatchPrefix<OfflineLootPatch>();
 			PatcherUtil.PatchPrefix<OfflineSaveProfilePatch>();
 			PatcherUtil.PatchPostfix<WeaponDurabilityPatch>();
-<<<<<<< HEAD
-
-			PatcherUtil.Patch<Patches.Healing.MainMenuControllerPatch>();
-=======
             PatcherUtil.PatchPostfix<SingleModeJamPatch>();
             
             PatcherUtil.Patch<Patches.Healing.MainMenuControllerPatch>();
->>>>>>> development
 			PatcherUtil.Patch<Patches.Healing.PlayerPatch>();
 
 			PatcherUtil.PatchPostfix<MatchmakerOfflineRaidPatch>();
