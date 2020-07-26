@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmuTarkov.Common", "EmuTarkov.Common\EmuTarkov.Common.csproj", "{7584F43A-5937-417E-ABF4-C5F680F300FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPTarkov.Common", "SPTarkov.Common\SPTarkov.Common.csproj", "{7584F43A-5937-417E-ABF4-C5F680F300FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmuTarkov.Core", "EmuTarkov.Core\EmuTarkov.Core.csproj", "{AC9ADC41-6007-4392-9D52-2BD850506052}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPTarkov.Core", "SPTarkov.Core\SPTarkov.Core.csproj", "{AC9ADC41-6007-4392-9D52-2BD850506052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmuTarkov.SinglePlayer", "EmuTarkov.SinglePlayer\EmuTarkov.SinglePlayer.csproj", "{CA2CDB32-6C34-4B23-AB90-E7A776AD40F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPTarkov.SinglePlayer", "SPTarkov.SinglePlayer\SPTarkov.SinglePlayer.csproj", "{CA2CDB32-6C34-4B23-AB90-E7A776AD40F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmuTarkov.Launcher", "EmuTarkov.Launcher\EmuTarkov.Launcher.csproj", "{4AF372E6-FAC5-4D96-B833-7A26B43C037B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPTarkov.Launcher", "SPTarkov.Launcher\SPTarkov.Launcher.csproj", "{4AF372E6-FAC5-4D96-B833-7A26B43C037B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
