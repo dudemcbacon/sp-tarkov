@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using SPTarkov.Common.Utils.Patching;
 using SPTarkov.SinglePlayer.Utils;
-using BotDifficultyHandler = GClass236;
+using BotDifficultyHandler = GClass280;
 
 namespace SPTarkov.SinglePlayer.Patches.Bots
 {

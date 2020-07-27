@@ -9,10 +9,10 @@ using EFT.UI.Matchmaker;
 using EFT.UI.Screens;
 using SPTarkov.Common.Utils.Patching;
 using SPTarkov.SinglePlayer.Utils.Reflection;
-using MenuController = GClass1101;
-using WeatherSettings = GStruct75;
-using BotsSettings = GStruct180;
-using WavesSettings = GStruct76;
+using MenuController = GClass1137;
+using WeatherSettings = GStruct90;
+using BotsSettings = GStruct223;
+using WavesSettings = GStruct91;
 
 namespace SPTarkov.SinglePlayer.Patches.ScavMode
 {
@@ -20,11 +20,11 @@ namespace SPTarkov.SinglePlayer.Patches.ScavMode
 
     public class LoadOfflineRaidScreenPatch : GenericPatch<LoadOfflineRaidScreenPatch>
     {
-        private static readonly string kMenuControllerInnerType = "Class761";
-        private static readonly string kMainControllerFieldName = "gclass1101_0";
-        private static readonly string kBotsSettingsFieldName = "gstruct180_0";
-        private static readonly string kWeatherSettingsFieldName = "gstruct75_0";
-        private static readonly string kWavesSettingsFieldName = "gstruct76_0";
+        private static readonly string kMenuControllerInnerType = "Class787";
+        private static readonly string kMainControllerFieldName = "gclass1137_0";
+        private static readonly string kBotsSettingsFieldName = "gstruct223_0";
+        private static readonly string kWeatherSettingsFieldName = "gstruct90_0";
+        private static readonly string kWavesSettingsFieldName = "gstruct91_0";
 
         private static readonly string kTargetMethodName = "method_2";
         private static readonly string kLoadReadyScreenMethodName = "method_36";
@@ -82,7 +82,7 @@ namespace SPTarkov.SinglePlayer.Patches.ScavMode
         {
             MenuController menuController = GetMenuController();
 
-            MatchmakerOfflineRaid.GClass1852 gclass = new MatchmakerOfflineRaid.GClass1852();
+            MatchmakerOfflineRaid.GClass1902 gclass = new MatchmakerOfflineRaid.GClass1902();
             gclass.OnShowNextScreen += LoadOfflineRaidNextScreen;
             gclass.OnShowReadyScreen += (OfflineRaidAction)Delegate.CreateDelegate(typeof(OfflineRaidAction), (object)menuController, kReadyMethodName);
             gclass.ShowScreen(EScreenState.Queued);

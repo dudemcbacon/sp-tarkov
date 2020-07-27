@@ -2,8 +2,8 @@
 using System.Reflection;
 using SPTarkov.Common.Utils.Patching;
 using SPTarkov.SinglePlayer.Utils;
-using WaveInfo = GClass855;
-using BotsPresets = GClass296;
+using WaveInfo = GClass890;
+using BotsPresets = GClass335;
 
 namespace SPTarkov.SinglePlayer.Patches.Bots
 {
