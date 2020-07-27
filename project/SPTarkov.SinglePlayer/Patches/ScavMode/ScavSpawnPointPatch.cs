@@ -13,18 +13,12 @@ namespace SPTarkov.SinglePlayer.Patches.ScavMode
 
         protected override MethodBase GetTargetMethod()
         {
-            var scavSpawnPointType = PatcherConstants.TargetAssembly.GetTypes()
+            return PatcherConstants.TargetAssembly.GetTypes()
                 .FirstOrDefault(x => x.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-                .Select(y => y.Name).Contains("SelectFarthestFromOtherPlayers"));
-
-            var infil = scavSpawnPointType.GetNestedTypes(BindingFlags.NonPublic).FirstOrDefault(
-                x => x.GetField("infiltrationZone") != null);
-
-            var infilMethods = infil.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
-            
-            var spawnAreas = infilMethods.Single(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ParameterType == typeof(SpawnArea.SpawnAreaSettings));
-
-            return spawnAreas;
+                .Select(y => y.Name).Contains("SelectFarthestFromOtherPlayers"))
+                .GetNestedTypes(BindingFlags.NonPublic).FirstOrDefault(x => x.GetField("infiltrationZone") != null)
+                .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
+                .FirstOrDefault(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ParameterType == typeof(SpawnArea.SpawnAreaSettings));
         }
 
         static bool PatchPrefix(ref bool __result, object __instance)
