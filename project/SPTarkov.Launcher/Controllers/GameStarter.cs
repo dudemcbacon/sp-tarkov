@@ -54,31 +54,38 @@ namespace SPTarkov.Launcher
         private bool IsInstalledInLive()
         {
             var value0 = false;
-            var value1 = Registry.LocalMachine.OpenSubKey(registeryInstall, false).GetValue("UninstallString");
-            var value2 = (value1 != null) ? value1.ToString() : "";
-            var value3 = new FileInfo(value2);
-            var value4 = new FileInfo[]
+
+            try
             {
+                var value1 = Registry.LocalMachine.OpenSubKey(registeryInstall, false).GetValue("UninstallString");
+                var value2 = (value1 != null) ? value1.ToString() : "";
+                var value3 = new FileInfo(value2);
+                var value4 = new FileInfo[]
+                {
                 new FileInfo(value2.Replace(value3.Name, @"Launcher.exe")),
                 new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\0Harmony.dll")),
                 new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\NLog.dll.nlog")),
                 new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\Nlog.SPTarkov.Common.dll")),
                 new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\Nlog.SPTarkov.Core.dll")),
                 new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\Nlog.SPTarkov.SinglePlayer.dll")),
-            };
+                };
 
-            foreach (var value in value4)
-            {
-                if (File.Exists(value.FullName))
+                foreach (var value in value4)
                 {
-                    File.Delete(value.FullName);
-                    value0 = true;
+                    if (File.Exists(value.FullName))
+                    {
+                        File.Delete(value.FullName);
+                        value0 = true;
+                    }
+                }
+
+                if (value0)
+                {
+                    File.Delete(@"EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll");
                 }
             }
-
-            if (value0)
+            catch
             {
-                File.Delete(@"EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll");
             }
 
             return value0;
