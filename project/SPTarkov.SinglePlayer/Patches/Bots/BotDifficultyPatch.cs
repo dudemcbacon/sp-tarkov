@@ -3,7 +3,7 @@ using EFT;
 using SPTarkov.Common.Utils.Patching;
 using SPTarkov.SinglePlayer.Utils;
 using SPTarkov.SinglePlayer.Utils.Bots;
-using BotDifficultyHandler = GClass236;
+using BotDifficultyHandler = GClass280;
 
 namespace SPTarkov.SinglePlayer.Patches.Bots
 {
