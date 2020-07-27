@@ -62,12 +62,12 @@ namespace SPTarkov.Launcher
                 var value3 = new FileInfo(value2);
                 var value4 = new FileInfo[]
                 {
-                new FileInfo(value2.Replace(value3.Name, @"Launcher.exe")),
-                new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\0Harmony.dll")),
-                new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\NLog.dll.nlog")),
-                new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\Nlog.SPTarkov.Common.dll")),
-                new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\Nlog.SPTarkov.Core.dll")),
-                new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\Nlog.SPTarkov.SinglePlayer.dll")),
+                    new FileInfo(value2.Replace(value3.Name, @"Launcher.exe")),
+                    new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\0Harmony.dll")),
+                    new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\NLog.dll.nlog")),
+                    new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\Nlog.SPTarkov.Common.dll")),
+                    new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\Nlog.SPTarkov.Core.dll")),
+                    new FileInfo(value2.Replace(value3.Name, @"EscapeFromTarkov_Data\Managed\Nlog.SPTarkov.SinglePlayer.dll")),
                 };
 
                 foreach (var value in value4)
