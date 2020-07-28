@@ -37,6 +37,13 @@ namespace SPTarkov.SinglePlayer.Patches.Progression
                 return false;
             }
 
+            MethodInfo prepareShotMethod = type.GetMethod("PrepareShot", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            MethodBody methodbody = prepareShotMethod.GetMethodBody();
+            if (!methodbody.LocalVariables.Any(x => x.LocalType == typeof(Weapon.EMalfunctionState)))
+            {
+                return false;
+            }
+
             return true;
         }
 
