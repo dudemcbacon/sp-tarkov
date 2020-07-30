@@ -42,8 +42,8 @@ namespace SPTarkov.SinglePlayer.Utils
 			foreach (WildSpawnType role in roles)
 			{
 				if (role == WildSpawnType.assaultGroup          // NOTE: never encounted this one, what is it?
-				|| role == WildSpawnType.bossTest               // NOTE: interesting
 				|| role == WildSpawnType.followerGluharSnipe    // TODO: we need server-side dumps
+				|| role == WildSpawnType.bossTest               // NOTE: interesting
 				|| role == WildSpawnType.followerTest           // NOTE: interesting
 				|| role == WildSpawnType.test)                  // NOTE: interesting
 				{
