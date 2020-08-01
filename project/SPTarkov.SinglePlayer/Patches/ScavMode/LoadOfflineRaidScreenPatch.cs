@@ -20,7 +20,7 @@ namespace SPTarkov.SinglePlayer.Patches.ScavMode
 
     public class LoadOfflineRaidScreenPatch : GenericPatch<LoadOfflineRaidScreenPatch>
     {
-        private static readonly string kMenuControllerInnerType = "Class787";
+        private static readonly string kMenuControllerInnerType = "Class788";
         private static readonly string kMainControllerFieldName = "gclass1137_0";
         private static readonly string kBotsSettingsFieldName = "gstruct223_0";
         private static readonly string kWeatherSettingsFieldName = "gstruct90_0";
