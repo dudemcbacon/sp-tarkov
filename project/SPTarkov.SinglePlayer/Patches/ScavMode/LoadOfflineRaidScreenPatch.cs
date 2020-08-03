@@ -9,7 +9,7 @@ using EFT.UI.Matchmaker;
 using EFT.UI.Screens;
 using SPTarkov.Common.Utils.Patching;
 using SPTarkov.SinglePlayer.Utils.Reflection;
-using MenuController = GClass1137;
+using MenuController = GClass1138;
 using WeatherSettings = GStruct90;
 using BotsSettings = GStruct223;
 using WavesSettings = GStruct91;
@@ -21,7 +21,7 @@ namespace SPTarkov.SinglePlayer.Patches.ScavMode
     public class LoadOfflineRaidScreenPatch : GenericPatch<LoadOfflineRaidScreenPatch>
     {
         private static readonly string kMenuControllerInnerType = "Class788";
-        private static readonly string kMainControllerFieldName = "gclass1137_0";
+        private static readonly string kMainControllerFieldName = "gclass1138_0";
         private static readonly string kBotsSettingsFieldName = "gstruct223_0";
         private static readonly string kWeatherSettingsFieldName = "gstruct90_0";
         private static readonly string kWavesSettingsFieldName = "gstruct91_0";
@@ -82,7 +82,7 @@ namespace SPTarkov.SinglePlayer.Patches.ScavMode
         {
             MenuController menuController = GetMenuController();
 
-            MatchmakerOfflineRaid.GClass1902 gclass = new MatchmakerOfflineRaid.GClass1902();
+            MatchmakerOfflineRaid.GClass1903 gclass = new MatchmakerOfflineRaid.GClass1903();
             gclass.OnShowNextScreen += LoadOfflineRaidNextScreen;
             gclass.OnShowReadyScreen += (OfflineRaidAction)Delegate.CreateDelegate(typeof(OfflineRaidAction), (object)menuController, kReadyMethodName);
             gclass.ShowScreen(EScreenState.Queued);

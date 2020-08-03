@@ -4,7 +4,7 @@ using UnityEngine;
 using EFT;
 using SPTarkov.Common.Utils.Patching;
 using SPTarkov.SinglePlayer.Utils;
-using AmmoInfo = GClass1609;
+using AmmoInfo = GClass1610;
 
 namespace SPTarkov.SinglePlayer.Patches.Progression
 {
