@@ -49,6 +49,7 @@
     <Compile Include="AssemblyLoader.cs" />
     <Compile Include="Controllers\AccountManager.cs" />
     <Compile Include="Controllers\JsonHandler.cs" />
+    <Compile Include="Controllers\LogManager.cs" />
     <Compile Include="Controllers\RequestHandler.cs" />
     <Compile Include="Controllers\ServerManager.cs" />
     <Compile Include="Models\SPTarkov\AccountInfo.cs" />
