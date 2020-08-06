@@ -112,4 +112,9 @@
       cp $(TargetDir)*.exe $(SolutionDir)/Build/
     </PostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+      xcopy /Y /I "$(TargetDir)*.exe" "$(SolutionDir)\Build\"
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
