@@ -90,4 +90,9 @@
       cp $(TargetDir)*.dll $(SolutionDir)/Build/EscapeFromTarkov_Data/Managed/
     </PostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+      xcopy /Y /I "$(TargetDir)*.dll" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
