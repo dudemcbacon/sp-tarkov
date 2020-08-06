@@ -34,6 +34,8 @@ namespace SPTarkov.Common.Utils.HTTP
 				request.Headers.Add("SessionId", Session);
 			}
 
+			request.Headers.Add("Accept-Encoding", "deflate");
+
 			request.Method = method;
 
 			if (method != "GET" && !string.IsNullOrEmpty(data))
@@ -43,6 +45,11 @@ namespace SPTarkov.Common.Utils.HTTP
 
 				request.ContentType = "application/json";
 				request.ContentLength = bytes.Length;
+
+				if (compress)
+                {
+					request.Headers.Add("Content-Encoding", "deflate");
+                }
 
 				using (Stream stream = request.GetRequestStream())
 				{
