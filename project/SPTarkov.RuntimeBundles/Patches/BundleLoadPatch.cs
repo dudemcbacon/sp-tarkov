@@ -25,8 +25,7 @@ namespace SPTarkov.RuntimeBundles.Patches
 
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(AccessTools.TypeByName("Class1886"), "method_0");
-            //return PatcherConstants.TargetAssembly.GetTypes().Single(IsTargetType).GetMethod("method_0");
+            return PatcherConstants.TargetAssembly.GetTypes().Single(IsTargetType).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Single(IsTargetMethod);
         }
 
         private static bool IsTargetType(Type type)
@@ -35,10 +34,9 @@ namespace SPTarkov.RuntimeBundles.Patches
         }
 
 
-        private static bool IsTargetMethod(MethodInfo mi)
+        private static bool IsTargetMethod(MethodInfo method)
         {
-            var parameters = mi.GetParameters();
-            return (!mi.Name.Equals("LoadFromFileAsync") || parameters.Length != 1 || parameters[0].Name != "path") ? false : true;
+            return method.GetParameters().Length == 0 && method.ReturnType == typeof(Task);
         }
 
         static bool PatchPrefix(object __instance, IBundleLock ___ginterface224_0, bool ___bool_0, string ___string_1, string ___string_0, Task __result)
@@ -54,9 +52,7 @@ namespace SPTarkov.RuntimeBundles.Patches
 
         private static async Task LoadBundleFromServer(object __instance, IBundleLock bundleLock, bool shouldBeLoaded, string path, string keyWithoutExtension)
         {
-            Traverse trav = Traverse.Create(__instance);
             EasyBundleHelper easyBundle = new EasyBundleHelper(__instance);
-
             bool cached = false;
             var bundleKey = Regex.Split(path, "bundle/", RegexOptions.IgnoreCase)[1];
             var cachePath = "Cache/StreamingAssets/windows/";
