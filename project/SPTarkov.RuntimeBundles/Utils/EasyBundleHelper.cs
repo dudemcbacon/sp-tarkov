@@ -26,6 +26,7 @@ namespace SPTarkov.RuntimeBundles.Utils
         private static readonly string _loadingAssetOperationFieldName = "assetBundleRequest_0";
         private static readonly string _assetsPropertyName = "Assets";
         private static readonly string _sameNameAssetPropertyName = "SameNameAsset";
+        private static MethodInfo _loadingCoroutineMethod;
 
 
 
@@ -191,11 +192,17 @@ namespace SPTarkov.RuntimeBundles.Utils
         {
             this._instance = easyBundle;
             _trav = Traverse.Create(easyBundle);
+
+            if (_loadingCoroutineMethod == null)
+            {
+                _loadingCoroutineMethod = easyBundle.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Single(x => x.GetParameters().Length == 0 && x.ReturnType == typeof(Task));
+                //TODO:Search member names by condition
+            }
         }
 
         public Task LoadingCoroutine()
         {
-            return _trav.Method("method_0").GetValue<Task>();
+            return (Task)_loadingCoroutineMethod.Invoke(_instance, new object[] { });
         }
     }
 }
