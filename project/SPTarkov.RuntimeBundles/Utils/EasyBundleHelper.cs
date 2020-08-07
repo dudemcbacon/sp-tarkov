@@ -4,6 +4,8 @@ using HarmonyLib;
 using System.Threading.Tasks;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
 
 namespace SPTarkov.RuntimeBundles.Utils
 {
@@ -12,21 +14,31 @@ namespace SPTarkov.RuntimeBundles.Utils
         private readonly object _instance;
         private readonly Traverse _trav;
 
-        private static string pathFieldName = "string_1";
-        private static string _keyWithoutExtensionFieldName = "string_0";
-        private static string _bundleLockPropertyName = "ginterface224_0";
+        private static readonly string _pathFieldName = "string_1";
+        private static readonly string _keyWithoutExtensionFieldName = "string_0";
+        private static readonly string _bundleLockPropertyName = "ginterface224_0";
+        private static readonly string _loadingJobPropertyName = "task_0";
+        private static readonly string _dependencyKeysPropertyName = "DependencyKeys";
+        private static readonly string _keyPropertyName = "Key";
+        private static readonly string _loadStatePropertyName = "LoadState";
+        private static readonly string _progressPropertyName = "Progress";
+        private static readonly string _bundlePropertyName = "Bundle";
+        private static readonly string _loadingAssetOperationFieldName = "assetBundleRequest_0";
+        private static readonly string _assetsPropertyName = "Assets";
+        private static readonly string _sameNameAssetPropertyName = "SameNameAsset";
+
 
 
         public IEnumerable<string> DependencyKeys
         {
             get
             {
-                return _trav.Property<IEnumerable<string>>("DependencyKeys").Value;
+                return _trav.Property<IEnumerable<string>>(_dependencyKeysPropertyName).Value;
             }
 
             set
             {
-                _trav.Property<IEnumerable<string>>("DependencyKeys").Value = value;
+                _trav.Property<IEnumerable<string>>(_dependencyKeysPropertyName).Value = value;
             }
         }
         public IBundleLock BundleLock
@@ -46,12 +58,12 @@ namespace SPTarkov.RuntimeBundles.Utils
         {
             get
             {
-                return _trav.Field<Task>("task_0").Value;
+                return _trav.Field<Task>(_loadingJobPropertyName).Value;
             }
 
             set
             {
-                _trav.Field<Task>("task_0").Value = value;
+                _trav.Field<Task>(_loadingJobPropertyName).Value = value;
             }
         }
 
@@ -59,12 +71,12 @@ namespace SPTarkov.RuntimeBundles.Utils
         {
             get
             {
-                return _trav.Field<string>("string_1").Value;
+                return _trav.Field<string>(_pathFieldName).Value;
             }
 
             set
             {
-                _trav.Field<string>("string_1").Value = value;
+                _trav.Field<string>(_pathFieldName).Value = value;
             }
         }
 
@@ -72,12 +84,12 @@ namespace SPTarkov.RuntimeBundles.Utils
         {
             get
             {
-                return _trav.Property<string>("Key").Value;
+                return _trav.Property<string>(_keyPropertyName).Value;
             }
 
             set
             {
-                _trav.Property<string>("Key").Value = value;
+                _trav.Property<string>(_keyPropertyName).Value = value;
             }
         }
 
@@ -85,51 +97,52 @@ namespace SPTarkov.RuntimeBundles.Utils
         {
             get
             {
-                return _trav.Property<BindableState>("LoadState").Value;
+                return _trav.Property<BindableState>(_loadStatePropertyName).Value;
             }
 
             set
             {
-                _trav.Property<BindableState>("LoadState").Value = value;
+                _trav.Property<BindableState>(_loadStatePropertyName).Value = value;
             }
         }
         public float Progress
         {
             get
             {
-                return _trav.Property<float>("Progress").Value;
+                return _trav.Property<float>(_progressPropertyName).Value;
             }
 
             set
             {
-                _trav.Property<float>("Progress").Value = value;
+                _trav.Property<float>(_progressPropertyName).Value = value;
             }
         }
 
-
+        
         public AssetBundle Bundle
         {
             get
             {
-                return _trav.Field<AssetBundle>("assetBundle_0").Value;
+                return _trav.Field<AssetBundle>(_bundlePropertyName).Value;
             }
 
             set
             {
-                _trav.Field<AssetBundle>("assetBundle_0").Value = value;
+                _trav.Field<AssetBundle>(_bundlePropertyName).Value = value;
             }
         }
 
+        
         public AssetBundleRequest loadingAssetOperation
         {
             get
             {
-                return _trav.Field<AssetBundleRequest>("assetBundleRequest_0").Value;
+                return _trav.Field<AssetBundleRequest>(_loadingAssetOperationFieldName).Value;
             }
 
             set
             {
-                _trav.Field<AssetBundleRequest>("assetBundleRequest_0").Value = value;
+                _trav.Field<AssetBundleRequest>(_loadingAssetOperationFieldName).Value = value;
             }
         }
 
@@ -138,12 +151,12 @@ namespace SPTarkov.RuntimeBundles.Utils
         {
             get
             {
-                return _trav.Property<UnityEngine.Object[]>("Assets").Value;
+                return _trav.Property<UnityEngine.Object[]>(_assetsPropertyName).Value;
             }
 
             set
             {
-                _trav.Property<UnityEngine.Object[]>("Assets").Value = value;
+                _trav.Property<UnityEngine.Object[]>(_assetsPropertyName).Value = value;
             }
         }
 
@@ -151,12 +164,12 @@ namespace SPTarkov.RuntimeBundles.Utils
         {
             get
             {
-                return _trav.Property<UnityEngine.Object>("SameNameAsset").Value;
+                return _trav.Property<UnityEngine.Object>(_sameNameAssetPropertyName).Value;
             }
 
             set
             {
-                _trav.Property<UnityEngine.Object>("SameNameAsset").Value = value;
+                _trav.Property<UnityEngine.Object>(_sameNameAssetPropertyName).Value = value;
             }
         }
 
@@ -164,12 +177,12 @@ namespace SPTarkov.RuntimeBundles.Utils
         {
             get
             {
-                return _trav.Field<string>("string_0").Value;
+                return _trav.Field<string>(_keyWithoutExtensionFieldName).Value;
             }
 
             set
             {
-                _trav.Field<string>("string_0").Value = value;
+                _trav.Field<string>(_keyWithoutExtensionFieldName).Value = value;
             }
         }
 
