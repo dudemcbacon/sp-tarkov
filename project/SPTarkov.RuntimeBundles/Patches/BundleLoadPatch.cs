@@ -11,7 +11,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
-using Diz.Jobs;
 using System.Text.RegularExpressions;
 using SPTarkov.RuntimeBundles.Utils;
 
@@ -39,21 +38,23 @@ namespace SPTarkov.RuntimeBundles.Patches
             return method.GetParameters().Length == 0 && method.ReturnType == typeof(Task);
         }
 
-        static bool PatchPrefix(object __instance, IBundleLock ___ginterface224_0, bool ___bool_0, string ___string_1, string ___string_0, Task __result)
+        static bool PatchPrefix(object __instance,string ___string_1, Task __result)
         {
+            // ___string_1 == path
             if (___string_1.IndexOf("http") == -1)
             {
                 return true;
             }
 
-            __result = LoadBundleFromServer(__instance, ___ginterface224_0, ___bool_0, ___string_1, ___string_0);
+            __result = LoadBundleFromServer(__instance);
             return false;
         }
 
-        private static async Task LoadBundleFromServer(object __instance, IBundleLock bundleLock, bool shouldBeLoaded, string path, string keyWithoutExtension)
+        private static async Task LoadBundleFromServer(object __instance)
         {
             EasyBundleHelper easyBundle = new EasyBundleHelper(__instance);
             bool cached = false;
+            var path = easyBundle.Path;
             var bundleKey = Regex.Split(path, "bundle/", RegexOptions.IgnoreCase)[1];
             var cachePath = "Cache/StreamingAssets/windows/";
 
@@ -85,7 +86,6 @@ namespace SPTarkov.RuntimeBundles.Patches
                         }
                         File.WriteAllBytes(cachePath + bundleKey, unityWebRequest.downloadHandler.data);
                         easyBundle.Path = cachePath + bundleKey;
-                        path = cachePath + bundleKey;
                     }
                     else
                     {

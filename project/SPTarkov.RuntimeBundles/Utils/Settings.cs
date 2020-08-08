@@ -24,13 +24,12 @@ namespace SPTarkov.RuntimeBundles.Utils
 		private void Init()
 		{
 			string json = new Request(Session, BackendUrl).GetJson("/singleplayer/bundles/");
-            
-
             if (string.IsNullOrEmpty(json))
 			{
 				Debug.LogError("SPTarkov.RuntimeBundles: Bundles data is Null, using fallback");
 				return;
 			}
+
             var jArray = JArray.Parse(json);
             foreach (var jObj in jArray)
             {
