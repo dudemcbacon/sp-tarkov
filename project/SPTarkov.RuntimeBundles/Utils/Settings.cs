@@ -4,6 +4,7 @@ using UnityEngine;
 using EFT;
 using SPTarkov.Common.Utils.HTTP;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace SPTarkov.RuntimeBundles.Utils
 {
@@ -24,7 +25,9 @@ namespace SPTarkov.RuntimeBundles.Utils
 
 		private void Init()
 		{
-			string json = new Request(Session, BackendUrl).GetJson("/singleplayer/bundles/");
+            this.CleanCache();
+
+            string json = new Request(Session, BackendUrl).GetJson("/singleplayer/bundles/");
             if (string.IsNullOrEmpty(json))
 			{
 				Debug.LogError("SPTarkov.RuntimeBundles: Bundles data is Null, using fallback");
@@ -44,6 +47,28 @@ namespace SPTarkov.RuntimeBundles.Utils
             
             Debug.LogError("SPTarkov.RuntimeBundles: Successfully received Bundles");
 		}
+
+        private void CleanCache()
+        {
+            if (Directory.Exists(cachePach))
+            {
+                DirectoryInfo dir = new DirectoryInfo(cachePach);
+                FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();
+                foreach (FileSystemInfo i in fileinfo)
+                {
+                    if (i is DirectoryInfo)
+                    {
+                        DirectoryInfo subdir = new DirectoryInfo(i.FullName);
+                        subdir.Delete(true);
+                    }
+                    else
+                    {
+                        File.Delete(i.FullName);
+                    }
+                }
+
+            }
+        }
     }
 
     public class BundleInfo
