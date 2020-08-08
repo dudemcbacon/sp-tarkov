@@ -38,7 +38,7 @@ namespace SPTarkov.RuntimeBundles.Patches
             return method.GetParameters().Length == 0 && method.ReturnType == typeof(Task);
         }
 
-        static bool PatchPrefix(object __instance,string ___string_1, Task __result)
+        static bool PatchPrefix(object __instance,string ___string_1, ref Task __result)
         {
             // ___string_1 == path
             if (___string_1.IndexOf("http") == -1)
@@ -53,27 +53,18 @@ namespace SPTarkov.RuntimeBundles.Patches
         private static async Task LoadBundleFromServer(object __instance)
         {
             EasyBundleHelper easyBundle = new EasyBundleHelper(__instance);
-            bool cached = false;
             var path = easyBundle.Path;
             var bundleKey = Regex.Split(path, "bundle/", RegexOptions.IgnoreCase)[1];
-            var cachePath = "Cache/StreamingAssets/windows/";
+            var cachePath = Settings.cachePach;
 
-            if (File.Exists("Cache/StreamingAssets/windows/" + bundleKey))
-            {
-                cached = true;
-                easyBundle.Path = cachePath + bundleKey;
-                path = cachePath + bundleKey;
-
-            }
-
-            if (!cached && path.IndexOf("http") != -1)
+            if (path.IndexOf("http") != -1)
             {
                 using (UnityWebRequest unityWebRequest = UnityWebRequest.Get(path))
                 {
                     unityWebRequest.certificateHandler = _certificateHandler;
                     unityWebRequest.disposeCertificateHandlerOnDispose = false;
-                    //unityWebRequest.timeout = 30000;
                     await unityWebRequest.SendWebRequest().Await();
+
                     if (!unityWebRequest.isNetworkError && !unityWebRequest.isHttpError)
                     {
                         var fileName = path.Split('/').ToList().Last();

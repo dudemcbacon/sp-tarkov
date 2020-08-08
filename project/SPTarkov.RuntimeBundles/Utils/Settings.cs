@@ -11,6 +11,7 @@ namespace SPTarkov.RuntimeBundles.Utils
     {
 		private static string Session;
 		private static string BackendUrl;
+        public static readonly string cachePach = "Cache/StreamingAssets/windows/";
         public readonly static Dictionary<string, BundleInfo> bundles = new Dictionary<string, BundleInfo>();
 
 		public Settings(string session, string backendUrl)
