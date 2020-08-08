@@ -41,6 +41,7 @@ namespace SPTarkov.RuntimeBundles.Patches
 
         private static bool IsTargetType(Type type)
         {
+            //TODO: Development needs, to be deleted later
             if (type == typeof(EasyAssets))
             {
                 Debugger.Break();

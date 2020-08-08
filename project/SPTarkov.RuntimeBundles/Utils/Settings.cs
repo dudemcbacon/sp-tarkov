@@ -25,7 +25,14 @@ namespace SPTarkov.RuntimeBundles.Utils
 
 		private void Init()
 		{
-            this.CleanCache();
+            try
+            {
+                this.CleanCache();
+            } catch(Exception e)
+            {
+                Debug.LogError("SPTarkov.RuntimeBundles: The cache cleanup failed and will try again at the next game startup.");
+            }
+            
 
             string json = new Request(Session, BackendUrl).GetJson("/singleplayer/bundles/");
             if (string.IsNullOrEmpty(json))
@@ -52,21 +59,7 @@ namespace SPTarkov.RuntimeBundles.Utils
         {
             if (Directory.Exists(cachePach))
             {
-                DirectoryInfo dir = new DirectoryInfo(cachePach);
-                FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();
-                foreach (FileSystemInfo i in fileinfo)
-                {
-                    if (i is DirectoryInfo)
-                    {
-                        DirectoryInfo subdir = new DirectoryInfo(i.FullName);
-                        subdir.Delete(true);
-                    }
-                    else
-                    {
-                        File.Delete(i.FullName);
-                    }
-                }
-
+                Directory.Delete(cachePach, true);
             }
         }
     }
