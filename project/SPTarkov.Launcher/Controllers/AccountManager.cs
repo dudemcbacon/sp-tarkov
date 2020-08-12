@@ -22,12 +22,13 @@ namespace SPTarkov.Launcher
 			try
 			{
 				id = RequestHandler.RequestLogin(data);
-				json = RequestHandler.RequestAccount(data);
 
 				if (id == "FAILED")
 				{
 					return -1;
 				}
+
+				json = RequestHandler.RequestAccount(data);
 			}
 			catch
 			{
