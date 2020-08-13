@@ -1,5 +1,5 @@
 ﻿using IBundleLock = GInterface224; //Property: IsLocked
-using BindableState = GClass2037<Diz.DependencyManager.ELoadState>; //Construct method parameter: initialValue
+using BindableState = GClass2080<Diz.DependencyManager.ELoadState>; //Construct method parameter: initialValue
 using HarmonyLib;
 using System.Threading.Tasks;
 using UnityEngine;

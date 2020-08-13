@@ -4,7 +4,7 @@ using UnityEngine;
 using EFT;
 using EFT.InventoryLogic;
 using SPTarkov.Common.Utils.Patching;
-using Equipment = GClass1593;
+using Equipment = GClass1598;
 using DamageInfo = GStruct230;
 
 namespace SPTarkov.SinglePlayer.Patches.Quests

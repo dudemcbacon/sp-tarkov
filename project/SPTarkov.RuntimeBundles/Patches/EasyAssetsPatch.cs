@@ -9,8 +9,8 @@ using SPTarkov.Common.Utils.Patching;
 using UnityEngine;
 using IEasyBundle = GInterface223; //Property: SameNameAsset 
 using IBundleLock = GInterface224; //Property: IsLocked
-using BundleLock = GClass2052; //Property: MaxConcurrentOperations
-using DependencyGraph = GClass2053<GInterface223>; // Method: GetDefaultNode()
+using BundleLock = GClass2057; //Property: MaxConcurrentOperations
+using DependencyGraph = GClass2095<GInterface223>; // Method: GetDefaultNode()
 using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;

@@ -5,7 +5,7 @@ using Diz.DependencyManager;
 using HarmonyLib;
 using SPTarkov.Common.Utils.Patching;
 using IBundleLock = GInterface224; //Property: IsLocked
-using BindableState = GClass2037<Diz.DependencyManager.ELoadState>; //Construct method parameter: initialValue
+using BindableState = GClass2080<Diz.DependencyManager.ELoadState>; //Construct method parameter: initialValue
 using System;
 using System.Linq;
 using UnityEngine;
